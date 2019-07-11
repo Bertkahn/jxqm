@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.admin.dao.AuthMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cloud.admin.entity.Auth">
+        <id column="id" property="id"/>
+        <result column="alias" property="alias"/>
+        <result column="name" property="name"/>
+        <result column="menuId" property="menuId"/>
+        <result column="authType" property="authType"/>
+        <result column="isSystem" property="isSystem"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, alias, name, menuId, authType, isSystem
+    </sql>
+    <select id="getAuthList" resultType="java.util.Map">
+        select a.*, b.name menuName from auth a
+        left join authMenu b on a.menuId = b.id
+        <where>
+            <foreach collection="table.search" item="item" index="index" separator="and">
+                <if test="item.key == 'menuName'">
+                    b.name ${item.symbol} #{item.value}
+                </if>
+                <if test="item.key != 'menuName'">
+                    ${'a.' + item.key} ${item.symbol} #{item.value}
+                </if>
+            </foreach>
+        </where>
+    </select>
+    <select id="getAuthByAliasListAndSystem" resultType="java.util.Map">
+        select * from auth where alias in
+        <foreach collection="aliasList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+</mapper>

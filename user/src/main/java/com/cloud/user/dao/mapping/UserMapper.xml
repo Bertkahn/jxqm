@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.user.dao.UserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cloud.user.entity.User">
+        <id column="id" property="id" />
+        <result column="nickName" property="nickName" />
+        <result column="trueName" property="trueName" />
+        <result column="phone" property="phone" />
+        <result column="headPic" property="headPic" />
+        <result column="birthYear" property="birthYear" />
+        <result column="birthDay" property="birthDay" />
+        <result column="idCard" property="idCard" />
+        <result column="age" property="age" />
+        <result column="sex" property="sex" />
+        <result column="createTime" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, nickName, trueName, phone, headPic, birthYear, birthDay, idCard, age, sex, createTime, comeTime
+    </sql>
+
+</mapper>

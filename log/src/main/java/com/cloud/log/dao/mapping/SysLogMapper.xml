@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.log.dao.SysLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cloud.log.entity.SysLog">
+        <id column="id" property="id" />
+        <result column="url" property="url" />
+        <result column="userAgent" property="userAgent" />
+        <result column="ip" property="ip" />
+        <result column="msg" property="msg" />
+        <result column="detail" property="detail" />
+        <result column="query" property="query" />
+        <result column="param" property="param" />
+        <result column="createTime" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, url, userAgent, ip, msg, detail, query, param, createTime
+    </sql>
+    <insert id="insertSysLogList">
+        insert into
+        sys_log (id, url, userAgent, ip, msg, detail, query, param, createTime)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id}, #{item.url}, #{item.userAgent}, #{item.ip}, #{item.msg}, #{item.detail}, #{item.query}, #{item.param}, #{item.createTime})
+        </foreach>
+    </insert>
+</mapper>

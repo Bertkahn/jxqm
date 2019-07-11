@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.user.dao.SaleUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cloud.user.entity.SaleUser">
+        <id column="userId" property="userId" />
+        <result column="saleId" property="saleId" />
+        <result column="nextVisitTime" property="nextVisitTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        userId, saleId, visitTime
+    </sql>
+    <select id="getSaleUserPageByAdminId" resultType="java.util.Map">
+        select b.*, a.nextVisitTime from sale_user a
+        inner join user b on a.userId = b.id
+        where a.saleId = #{adminId}
+        <foreach collection="table.search" item="item" index="index" separator="and" open="and">
+            <if test="item.key == 'visitTime'">
+                ${'a.' + item.key} ${item.symbol} #{item.value}
+            </if>
+            <if test="item.key != 'visitTime'">
+                ${'b.' + item.key} ${item.symbol} #{item.value}
+            </if>
+        </foreach>
+        <if test="table.sort != null">
+            order by
+            <if test="table.sort == 'visitTime'">
+                ${'a.' + table.sort}
+            </if>
+            <if test="table.sort != 'visitTime'">
+                ${'b.' + table.sort}
+            </if>
+            ${table.sortType}
+        </if>
+    </select>
+</mapper>

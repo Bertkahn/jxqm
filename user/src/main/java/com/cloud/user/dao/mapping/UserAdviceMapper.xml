@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.user.dao.UserAdviceMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cloud.user.entity.UserAdvice">
+        <id column="id" property="id" />
+        <result column="userId" property="userId" />
+        <result column="projectId" property="projectId" />
+        <result column="createTime" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, userId, projectId, createTime
+    </sql>
+    <select id="getUserAdviceByUserIdList" resultType="java.lang.String">
+        select b.name from user_advice a
+        inner join project b on a.projectId = b.id
+        where a.userId = #{userId}
+        group by a.projectId
+        order by createTime desc limit 3
+    </select>
+
+</mapper>
