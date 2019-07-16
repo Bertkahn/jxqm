@@ -20,7 +20,7 @@
     <sql id="Base_Column_List">
         id, userId, ip, userAgent, token, param, query, url, remark, createTime
     </sql>
-    <insert id="insertApiLogList">
+    <insert id="insertAll">
         insert into
         api_log (id, userId, ip, userAgent, token, param, query, url, remark, createTime)
         values

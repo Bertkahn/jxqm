@@ -15,5 +15,5 @@ import java.util.List;
  * @since 2019-07-10
  */
 public interface SysLogMapper extends BaseMapper<SysLog> {
-    void insertSysLogList (@Param("list") List<SysLog> sysLogList);
+    void insertAll (@Param("list") List<SysLog> sysLogList);
 }

@@ -3,16 +3,25 @@ package com.cloud.user.service;
 import com.cloud.common.dto.UserAuthDto;
 import com.cloud.user.entity.User;
 
+import java.util.List;
 import java.util.Map;
 
 public interface UserService {
+
+    // 填写实名信息
+    Map completeUserInfo (Long userId, String trueName, Integer birth, Integer sex, Integer cityId, String city);
+    // 微信登录
+    Map loginByUnionId (String unionId);
     // 小程序绑定手机号
-    Map wxMinBindPhone (String phone, Integer code, String unionId, String minOpenId, String nickName, String headPic, Integer sex, String inviteCode);
+    Map wxMinBindPhone (String phone, Integer code, String unionId, String minOpenId, String nickName, String headPic, Integer sex, Long activityId);
     // system
     UserAuthDto getUserAuthByToken (String token);
     // system
     UserAuthDto getUserAuthByUserId (Long userId);
-//    User getUserByUserId (Long userId);
+
+    User getUserByUserId (Long userId);
+
+    List<User> getUserListByUserIdList (List<Long> userIdList);
 //    // sun
 //    // 注册
 //    User register (String phone, String password, Integer code);

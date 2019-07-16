@@ -7,6 +7,7 @@ import java.util.Date;
 public class TimeUtil {
     // 格式化时间
     public static String formatTime (String format) {
+        format = format.replaceAll("y", "yy");
         format = format.replaceAll("Y", "yyyy");
         format = format.replaceAll("M", "MM");
         format = format.replaceAll("D", "dd");

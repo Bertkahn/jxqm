@@ -41,7 +41,7 @@ public class SmsTool {
     private static boolean sendVerifyCode (String phone, Integer code, String smsCode) {
         final String product = "Dysmsapi";
         final String domain = "dysmsapi.aliyuncs.com";
-        IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", AliConst.smsAppId, AliConst.smsSecret);
+        IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", AliConst.smsKeyId, AliConst.smsSecret);
         try {
             DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", product, domain);
         } catch (ClientException e) {

@@ -25,6 +25,9 @@ private static final long serialVersionUID=1L;
     @TableField("trueName")
     private String trueName;
 
+    @TableField("isVerify")
+    private Integer isVerify;
+
     private String phone;
 
     @TableField("headPic")
@@ -42,6 +45,11 @@ private static final long serialVersionUID=1L;
     private Integer age;
 
     private Integer sex;
+
+    @TableField("cityId")
+    private Integer cityId;
+
+    private String city;
 
     @TableField("createTime")
     private Integer createTime;
@@ -150,5 +158,29 @@ private static final long serialVersionUID=1L;
         ", sex=" + sex +
         ", createTime=" + createTime +
         "}";
+    }
+
+    public Integer getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public Integer getIsVerify() {
+        return isVerify;
+    }
+
+    public void setIsVerify(Integer isVerify) {
+        this.isVerify = isVerify;
     }
 }

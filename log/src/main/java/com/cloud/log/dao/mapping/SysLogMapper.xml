@@ -19,7 +19,7 @@
     <sql id="Base_Column_List">
         id, url, userAgent, ip, msg, detail, query, param, createTime
     </sql>
-    <insert id="insertSysLogList">
+    <insert id="insertAll">
         insert into
         sys_log (id, url, userAgent, ip, msg, detail, query, param, createTime)
         values

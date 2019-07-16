@@ -6,7 +6,7 @@ server:
 
 spring:
   application:
-    name: user
+    name: analyse
   redis:
     host: 112.124.47.127
     password: VOnQpSokMQIjTpdY

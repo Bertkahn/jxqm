@@ -15,5 +15,5 @@ import java.util.List;
  * @since 2019-07-10
  */
 public interface AdminLogMapper extends BaseMapper<AdminLog> {
-    void insertAdminLogList (@Param("list") List<AdminLog> sysLogList);
+    void insertAll (@Param("list") List<AdminLog> sysLogList);
 }

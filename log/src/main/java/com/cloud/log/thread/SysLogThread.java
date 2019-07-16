@@ -39,7 +39,7 @@ public class SysLogThread extends Thread {
                     }
                 }
                 if (CommonUtil.isNotEmpty(list))
-                    sysLogMapper.insertSysLogList(list);
+                    sysLogMapper.insertAll(list);
             }
             try {
                 sleep(100);

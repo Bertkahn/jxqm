@@ -8,12 +8,14 @@
         <result column="friendId" property="friendId" />
         <result column="saleId" property="saleId" />
         <result column="instId" property="instId" />
+        <result column="fromType" property="fromType" />
+        <result column="fromId" property="fromId" />
         <result column="device" property="device" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        userId, friendId, saleId, instId, device
+        userId, friendId, saleId, instId, fromType, fromId, device
     </sql>
 
 </mapper>

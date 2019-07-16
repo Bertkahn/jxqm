@@ -1,11 +1,9 @@
-package com.cloud.user.service.impl;
+package com.cloud.tool.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.cloud.common.constant.DeviceConst;
 import com.cloud.common.constant.WxConst;
-import com.cloud.common.util.CommonUtil;
 import com.cloud.common.util.HttpUtil;
-import com.cloud.user.service.WxService;
+import com.cloud.tool.service.WxService;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -26,7 +24,7 @@ public class WxServiceImpl implements WxService {
         assert result != null;
         result.put("openId", result.get("openid"));
         // todo
-        result.put("unionId", CommonUtil.createToken());
+        result.put("unionId", result.get("openid"));
         result.remove("openid");
         result.remove("unionid");
         return result;

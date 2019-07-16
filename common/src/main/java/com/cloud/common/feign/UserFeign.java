@@ -15,12 +15,6 @@ public class UserFeign extends BaseFeign {
     @Resource
     private UserConnect userConnect;
 
-    @SuppressWarnings("unchecked")
-    public List<Map<String, Object>> getLevelList () {
-        Map<String, Object> json = new HashMap<>();
-        return parseResponse(userConnect.getLevelList(json), List.class);
-    }
-
     public UserAuthDto getUserAuthByToken (String token) {
         Map<String, Object> json = new HashMap<>();
         json.put("token", token);
@@ -40,10 +34,11 @@ public class UserFeign extends BaseFeign {
         return parseResponse(userConnect.getUserByUserId(json), Map.class);
     }
 
-    public Map getAddressById (Long addressId) {
+    @SuppressWarnings("unchecked")
+    public List<Map<String, Object>> getUserListByUserIdList (List<Long> userIdList) {
         Map<String, Object> json = new HashMap<>();
-        json.put("addressId", addressId);
-        return parseResponse(userConnect.getAddressById(json), Map.class);
+        json.put("idList", userIdList);
+        return parseResponse(userConnect.getUserListByUserIdList(json), List.class);
     }
 
 }

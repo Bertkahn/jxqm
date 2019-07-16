@@ -39,7 +39,7 @@ public class AdminLogThread extends Thread {
                     }
                 }
                 if (CommonUtil.isNotEmpty(list))
-                    adminLogMapper.insertAdminLogList(list);
+                    adminLogMapper.insertAll(list);
             }
             try {
                 sleep(100);

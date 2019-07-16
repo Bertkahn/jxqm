@@ -15,5 +15,5 @@ import java.util.List;
  * @since 2019-07-10
  */
 public interface ApiLogMapper extends BaseMapper<ApiLog> {
-    void insertApiLogList (@Param("list") List<ApiLog> sysLogList);
+    void insertAll (@Param("list") List<ApiLog> sysLogList);
 }

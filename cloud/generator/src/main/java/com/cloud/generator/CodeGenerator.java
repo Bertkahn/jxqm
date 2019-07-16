@@ -11,9 +11,9 @@ public class CodeGenerator {
 
 
 
-    private static final String name = "user";// 服务名
-    private static final String dbName = "sm_user" ;// 数据库
-    private static final String tableName = "user_increase";// 表名
+    private static final String name = "activity";// 服务名
+    private static final String dbName = "sm_" +  name;// 数据库
+    private static final String tableName = "activity_1_support";// 表名
 
 
 

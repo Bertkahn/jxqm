@@ -15,32 +15,38 @@ import java.util.List;
 @Controller
 @RequestMapping("/server/user")
 public class UserServer extends ServerController {
-//    @Resource
-//    private UserService userService;
-//
-//    @RequestMapping("/getUserAuthByToken")
-//    public void getUserAuthByToken () {
-//        String token = postString("token");
-//        if (CommonUtil.isEmpty(token))
-//            Res.fail(ErrorType.SERVER_PARAM_ERR);
-//        Res.success(userService.getUserAuthByToken(token));
-//    }
-//
-//    @RequestMapping("/getUserAuthByUserId")
-//    public void getAdminAuthByAdminId () {
-//        Long userId = postLong("userId");
-//        if (CommonUtil.isEmpty(userId))
-//            Res.fail(ErrorType.SERVER_PARAM_ERR);
-//        Res.success(userService.getUserAuthByUserId(userId));
-//    }
-//
-//    @RequestMapping("/getUserByUserId")
-//    public void getUserByUserId () {
-//        Long userId = postLong("userId");
-//        if (CommonUtil.isEmpty(userId))
-//            Res.fail(ErrorType.SERVER_PARAM_ERR);
-//        Res.success(userService.getUserByUserId(userId));
-//    }
+    @Resource
+    private UserService userService;
 
+    @RequestMapping("/getUserAuthByToken")
+    public void getUserAuthByToken () {
+        String token = postString("token");
+        if (CommonUtil.isEmpty(token))
+            Res.fail(ErrorType.SERVER_PARAM_ERR);
+        Res.success(userService.getUserAuthByToken(token));
+    }
 
+    @RequestMapping("/getUserAuthByUserId")
+    public void getAdminAuthByAdminId () {
+        Long userId = postLong("userId");
+        if (CommonUtil.isEmpty(userId))
+            Res.fail(ErrorType.SERVER_PARAM_ERR);
+        Res.success(userService.getUserAuthByUserId(userId));
+    }
+
+    @RequestMapping("/getUserByUserId")
+    public void getUserByUserId () {
+        Long userId = postLong("userId");
+        if (CommonUtil.isEmpty(userId))
+            Res.fail(ErrorType.SERVER_PARAM_ERR);
+        Res.success(userService.getUserByUserId(userId));
+    }
+
+    @RequestMapping("/getUserListByUserIdList")
+    public void getUserListByUserIdList () {
+        List<Long> userIdList = postList("idList", Long.class);
+        if (CommonUtil.isEmpty(userIdList))
+            Res.success(new ArrayList<>());
+        Res.success(userService.getUserListByUserIdList(userIdList));
+    }
 }

@@ -7,6 +7,7 @@
         <id column="id" property="id" />
         <result column="nickName" property="nickName" />
         <result column="trueName" property="trueName" />
+        <result column="isVerify" property="isVerify" />
         <result column="phone" property="phone" />
         <result column="headPic" property="headPic" />
         <result column="birthYear" property="birthYear" />
@@ -14,12 +15,20 @@
         <result column="idCard" property="idCard" />
         <result column="age" property="age" />
         <result column="sex" property="sex" />
+        <result column="cityId" property="cityId" />
+        <result column="city" property="city" />
         <result column="createTime" property="createTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, nickName, trueName, phone, headPic, birthYear, birthDay, idCard, age, sex, createTime, comeTime
+        id, nickName, trueName, isVerify, phone, headPic, birthYear, birthDay, idCard, age, sex, cityId, city, createTime
     </sql>
+    <select id="getUserListByUserIdList" resultType="com.cloud.user.entity.User">
+        select * from user where id in
+        <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
 
 </mapper>

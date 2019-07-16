@@ -39,7 +39,7 @@ public class ApiLogThread extends Thread {
                     }
                 }
                 if (CommonUtil.isNotEmpty(list))
-                    apiLogMapper.insertApiLogList(list);
+                    apiLogMapper.insertAll(list);
             }
             try {
                 sleep(100);

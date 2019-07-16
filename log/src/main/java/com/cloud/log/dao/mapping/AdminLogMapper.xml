@@ -20,7 +20,7 @@
     <sql id="Base_Column_List">
         id, adminId, ip, userAgent, token, param, query, url, remark, createTime
     </sql>
-    <insert id="insertAdminLogList">
+    <insert id="insertAll">
         insert into
         admin_log (id, adminId, ip, userAgent, token, param, query, url, remark, createTime)
         values

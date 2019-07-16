@@ -9,7 +9,7 @@ import com.cloud.common.redis.Redis;
 import com.cloud.common.response.ErrorType;
 import com.cloud.common.response.Res;
 import com.cloud.common.util.CommonUtil;
-import com.cloud.common.util.GlobUtil;
+import com.cloud.common.util.AliUtil;
 import com.cloud.common.util.TimeUtil;
 import com.cloud.user.dao.*;
 import com.cloud.user.entity.*;
@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -44,8 +45,35 @@ public class UserServiceImpl implements UserService {
     private final Integer expire = TimeConst.hour;
 
     @Override
+    public Map completeUserInfo(Long userId, String trueName, Integer birth, Integer sex, Integer cityId, String city) {
+        User user = userMapper.selectById(userId);
+        if (user.getIsVerify() == 1)
+            return parseReturnUser(user);
+        user.setTrueName(trueName);
+        user.setBirthDay(birth % 10000);
+        user.setBirthYear(birth / 10000);
+        user.setSex(sex);
+        user.setCity(city);
+        user.setCityId(cityId);
+        user.setIsVerify(1);
+        userMapper.updateById(user);
+        return parseReturnUser(user);
+    }
+
+    @Override
+    public Map loginByUnionId(String unionId) {
+        UserLogin userLogin = userLoginMapper.getUserLoginByUnionId(unionId);
+        if (userLogin == null) {
+            Res.fail(ErrorType.USER_NOT_EXIST);
+            return null;
+        }
+        User user = userMapper.selectById(userLogin.getUserId());
+        return parseReturnUser(user, userLogin);
+    }
+
+    @Override
     @SuppressWarnings("unchecked")
-    public Map wxMinBindPhone(String phone, Integer code, String unionId, String minOpenId, String nickName, String headPic, Integer sex, String inviteCode) {
+    public Map wxMinBindPhone(String phone, Integer code, String unionId, String minOpenId, String nickName, String headPic, Integer sex, Long activityId) {
         // 验证码
         Integer time = TimeUtil.getTimeStamp();
         smsService.verifyCode(phone, code, VerifyCodeConst.bindPhone);
@@ -89,6 +117,10 @@ public class UserServiceImpl implements UserService {
                 userFrom.setFriendId(friendId);
                 userFrom.setInstId(instId);
                 userFrom.setSaleId(saleId);
+                if (CommonUtil.isNotEmpty(activityId)) {
+                    userFrom.setFromType(1);// 活动来的
+                    userFrom.setFromId(activityId);
+                }
                 userFromMapper.insert(userFrom);
                 // belong
                 UserBelong userBelong = new UserBelong();
@@ -137,20 +169,30 @@ public class UserServiceImpl implements UserService {
             userLoginMapper.updateById(userLogin);
             user = userMapper.selectById(userLogin.getUserId());
         }
+        return parseReturnUser(user, userLogin);
+    }
+
+    private Map parseReturnUser (User user) {
+        UserLogin userLogin = userLoginMapper.selectById(user.getId());
+        return parseReturnUser (user, userLogin);
+    }
+    private Map parseReturnUser (User user, UserLogin userLogin) {
         // redis
         UserAuthDto userAuthDto = new UserAuthDto();
         userAuthDto.setUserId(user.getId());
         redis.set(RedisConst.userToken + userLogin.getToken(), userAuthDto, expire);
-        return parseReturnUser(user, userLogin);
-    }
-
-    private Map parseReturnUser (User user, UserLogin userLogin) {
+        // return
         Map<String, Object> result = new HashMap<>();
         result.put("userId", user.getId());
         result.put("phone", user.getPhone());
         result.put("nickName", user.getNickName());
-        result.put("headPic", GlobUtil.parseOssImg(user.getHeadPic()));
+        result.put("trueName", user.getTrueName());
+        result.put("isVerify", user.getIsVerify());
+        result.put("birth", user.getBirthYear() * 10000 + user.getBirthDay());
+        result.put("headPic", AliUtil.parseOssImg(user.getHeadPic()));
         result.put("sex", user.getSex());
+        result.put("city", user.getCity());
+        result.put("cityId", user.getCityId());
         result.put("token", userLogin.getToken());
         result.put("unionId", userLogin.getUnionId());
         return result;
@@ -186,29 +228,35 @@ public class UserServiceImpl implements UserService {
         return userAuthDto;
     }
 
+
+
     // 创建userId
     private Long createUserId () {
-        Long lastUserId = redis.get(RedisConst.lastUserId, Long.class);
+        Long lastUserId = redis.get(RedisConst.lastUserIdKey, Long.class);
         if (CommonUtil.isEmpty(lastUserId))
             lastUserId = userMapper.getLastUserId();
         if (CommonUtil.isEmpty(lastUserId))
             lastUserId = 100000L;
         Long userId = (lastUserId / 100 + 1) * 100 + CommonUtil.createRandomNum(2);
-        redis.set(RedisConst.lastUserId, userId, TimeConst.day);
+        redis.set(RedisConst.lastUserIdKey, userId, TimeConst.day);
         return userId;
     }
 
-//    @Override
-//    public User getUserByUserId(Long userId) {
-//        User user = userMapper.selectById(userId);
-//        if (user == null) {
-//            Res.fail(ErrorType.UNSAFE_USER_NOT_EXIST);
-//        }
-//        return user;
-//    }
-//
-//    // sun
-//    // 注册
+    @Override
+    public User getUserByUserId(Long userId) {
+        User user = userMapper.selectById(userId);
+        if (user == null) {
+            Res.fail(ErrorType.UNSAFE_USER_NOT_EXIST);
+        }
+        return user;
+    }
+
+    @Override
+    public List<User> getUserListByUserIdList(List<Long> userIdList) {
+        return userMapper.getUserListByUserIdList(userIdList);
+    }
+
+// 注册
 //    @Override
 //    @Transactional
 //    public User register(String phone, String password, Integer code) {

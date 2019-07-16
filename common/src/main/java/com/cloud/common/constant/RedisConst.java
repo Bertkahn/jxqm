@@ -14,5 +14,7 @@ public class RedisConst {
     // 用户邀请信息
     public static final String inviteInfoKey = "IIK-";
     // UserId
-    public static final String lastUserId = "LUIK-";
+    public static final String lastUserIdKey = "LUIK-";
+    // activity
+    public static final String activityKey = "ACTK-";
 }

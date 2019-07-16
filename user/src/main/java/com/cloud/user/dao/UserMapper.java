@@ -2,7 +2,10 @@ package com.cloud.user.dao;
 
 import com.cloud.user.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * <p>
@@ -18,4 +21,6 @@ public interface UserMapper extends BaseMapper<User> {
 
     @Select("select id from user order by id desc limit 1")
     Long getLastUserId ();
+
+    List<User> getUserListByUserIdList (@Param("idList") List<Long> isList);
 }

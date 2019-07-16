@@ -1,0 +1,52 @@
+server:
+  port: 50600
+  worker-id: 6
+  datacenter-id: 0
+  product: false
+
+spring:
+  application:
+    name: tool
+  redis:
+    host: 112.124.47.127
+    password: VOnQpSokMQIjTpdY
+    port: 6379
+    database: 6
+  datasource:
+    url: jdbc:mysql://rm-bp10d27rlb58bmnupio.mysql.rds.aliyuncs.com:3306/sm_tool?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
+    username: sm_child
+    password: dwfer$wew@Wd223
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis-plus:
+  mapper-locations: classpath*:com/cloud/*/dao/mapping/*.xml
+  type-aliases-package: com.cloud.*.entity
+  global-config:
+    worker-id: ${server.worker-id}
+    datacenter-id: ${server.datacenter-id}
+    db-config:
+      id-type: id_worker
+  configuration:
+    map-underscore-to-camel-case: false
+    cache-enabled: true #配置的缓存的全局开关
+    lazyLoadingEnabled: true #延时加载的开关
+    multipleResultSetsEnabled: true #开启的话，延时加载一个属性时会加载该对象全部属性，否则按需加载属性
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://test:pwd@localhost:50000/eureka/
+feign:
+  hystrix:
+    enabled: true
+ribbon:
+  ReadTimeout: 5000
+  ConnectTimeout: 5000
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000

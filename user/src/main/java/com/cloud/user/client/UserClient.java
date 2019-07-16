@@ -16,11 +16,33 @@ import java.util.Map;
 @RequestMapping("/client/user")
 public class UserClient extends ClientController {
     UserClient() {
-        noNeedLogin = new ArrayList<>(Arrays.asList("wxMinBindPhone"));
+        noNeedLogin = new ArrayList<>(Arrays.asList("wxMinBindPhone", "loginByUnionId"));
     }
 
     @Resource
     private UserService userService;
+
+    // 实名信息
+    @RequestMapping("/completeUserInfo")
+    public void completeUserInfo () {
+        String trueName = postString("trueName");
+        Integer birth = postInt("birth");
+        Integer sex = postInt("sex");
+        Integer cityId = postInt("cityId");
+        String city = postString("city");
+        if (CommonUtil.isEmpty(trueName) || CommonUtil.isEmpty(birth) || CommonUtil.isEmpty(sex) || CommonUtil.isEmpty(cityId) || CommonUtil.isEmpty(city))
+            Res.fail(ErrorType.PARAM_ERR);
+        Res.success(userService.completeUserInfo(getUserId(), trueName, birth, sex, cityId, city));
+    }
+
+    // unionId登录
+    @RequestMapping("/loginByUnionId")
+    public void loginByUnionId () {
+        String unionId = postString("unionId");
+        if (CommonUtil.isEmpty(unionId))
+            Res.fail(ErrorType.PARAM_ERR);
+        Res.success(userService.loginByUnionId(unionId));
+    }
 
     // 小程序绑定手机号
     @RequestMapping("/wxMinBindPhone")
@@ -32,10 +54,10 @@ public class UserClient extends ClientController {
         String headPic = postString("headPic");
         Integer sex = postInt("sex", 1);
         Integer code = postInt("code");
-        String inviteCode = postString("inviteCode", "");
+        Long activityId = postLong("activityId");
         if (CommonUtil.isEmpty(phone) || CommonUtil.isEmpty(unionId) || CommonUtil.isEmpty(minOpenId) || CommonUtil.isEmpty(code) || CommonUtil.isEmpty(nickName) || CommonUtil.isEmpty(headPic))
             Res.fail(ErrorType.PARAM_ERR);
-        Res.success(userService.wxMinBindPhone(phone, code, unionId, minOpenId, nickName, headPic, sex, inviteCode));
+        Res.success(userService.wxMinBindPhone(phone, code, unionId, minOpenId, nickName, headPic, sex, activityId));
     }
 
 

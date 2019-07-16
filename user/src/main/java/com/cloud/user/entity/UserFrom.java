@@ -11,7 +11,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author sun
- * @since 2019-07-11
+ * @since 2019-07-15
  */
 @TableName("user_from")
 public class UserFrom implements Serializable {
@@ -29,6 +29,15 @@ private static final long serialVersionUID=1L;
 
     @TableField("instId")
     private Long instId;
+
+    /**
+     * 类型1：活动
+     */
+    @TableField("fromType")
+    private Integer fromType;
+
+    @TableField("fromId")
+    private Long fromId;
 
     /**
      * 设备
@@ -68,6 +77,22 @@ private static final long serialVersionUID=1L;
         this.instId = instId;
     }
 
+    public Integer getFromType() {
+        return fromType;
+    }
+
+    public void setFromType(Integer fromType) {
+        this.fromType = fromType;
+    }
+
+    public Long getFromId() {
+        return fromId;
+    }
+
+    public void setFromId(Long fromId) {
+        this.fromId = fromId;
+    }
+
     public Integer getDevice() {
         return device;
     }
@@ -83,6 +108,8 @@ private static final long serialVersionUID=1L;
         ", friendId=" + friendId +
         ", saleId=" + saleId +
         ", instId=" + instId +
+        ", fromType=" + fromType +
+        ", fromId=" + fromId +
         ", device=" + device +
         "}";
     }

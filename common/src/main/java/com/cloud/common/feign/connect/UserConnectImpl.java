@@ -17,17 +17,12 @@ public class UserConnectImpl implements UserConnect {
     }
 
     @Override
-    public String getLevelList(Map map) {
-        return null;
-    }
-
-    @Override
     public String getUserByUserId(Map map) {
         return null;
     }
 
     @Override
-    public String getAddressById(Map map) {
+    public String getUserListByUserIdList(Map map) {
         return null;
     }
 }

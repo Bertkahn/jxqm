@@ -1,9 +1,10 @@
-package com.cloud.user.client;
+package com.cloud.tool.client;
 
+import com.cloud.common.parent.ClientController;
 import com.cloud.common.response.ErrorType;
 import com.cloud.common.response.Res;
 import com.cloud.common.util.CommonUtil;
-import com.cloud.user.service.WxService;
+import com.cloud.tool.service.WxService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
