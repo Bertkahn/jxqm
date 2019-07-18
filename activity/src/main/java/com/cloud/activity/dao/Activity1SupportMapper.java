@@ -2,6 +2,7 @@ package com.cloud.activity.dao;
 
 import com.cloud.activity.entity.Activity1Support;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 /**
@@ -14,5 +15,5 @@ import org.apache.ibatis.annotations.Select;
  */
 public interface Activity1SupportMapper extends BaseMapper<Activity1Support> {
     @Select("select id from activity_1_support where userId = #{userId} and friendId = #{friendId} and activityId = #{activityId} limit 1")
-    Long isSupport(Long userId, Long friendId, Long activityId);
+    Long isSupport(@Param("userId") Long userId, @Param("friendId") Long friendId, @Param("activityId") Long activityId);
 }

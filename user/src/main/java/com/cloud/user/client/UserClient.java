@@ -52,12 +52,14 @@ public class UserClient extends ClientController {
         String minOpenId = postString("openId");
         String nickName = postString("nickName");
         String headPic = postString("headPic");
-        Integer sex = postInt("sex", 1);
+        Integer sex = postInt("sex", 2);
         Integer code = postInt("code");
-        Long activityId = postLong("activityId");
-        if (CommonUtil.isEmpty(phone) || CommonUtil.isEmpty(unionId) || CommonUtil.isEmpty(minOpenId) || CommonUtil.isEmpty(code) || CommonUtil.isEmpty(nickName) || CommonUtil.isEmpty(headPic))
+        Long activityId = postLong("activityId", 0L);
+        Long friendId = postLong("friendId", 0L);
+        Long saleId = postLong("saleId", 0L);
+        if (CommonUtil.isEmpty(phone) || CommonUtil.isEmpty(unionId) || CommonUtil.isEmpty(minOpenId) || CommonUtil.isEmpty(code) || CommonUtil.isEmpty(nickName))
             Res.fail(ErrorType.PARAM_ERR);
-        Res.success(userService.wxMinBindPhone(phone, code, unionId, minOpenId, nickName, headPic, sex, activityId));
+        Res.success(userService.wxMinBindPhone(phone, code, unionId, minOpenId, nickName, headPic, sex, activityId, friendId, saleId));
     }
 
 

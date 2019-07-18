@@ -9,12 +9,13 @@
         <result column="userId" property="userId" />
         <result column="want" property="want" />
         <result column="remark" property="remark" />
+        <result column="supportNum" property="supportNum" />
         <result column="createTime" property="createTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, activityId, userId, want, remark, createTime
+        id, activityId, userId, want, remark, supportNum, createTime
     </sql>
 
 </mapper>

@@ -54,6 +54,9 @@ private static final long serialVersionUID=1L;
     @TableField("createTime")
     private Integer createTime;
 
+    @TableField("saleId")
+    private Integer saleId;
+
 
     public Long getId() {
         return id;
@@ -182,5 +185,13 @@ private static final long serialVersionUID=1L;
 
     public void setIsVerify(Integer isVerify) {
         this.isVerify = isVerify;
+    }
+
+    public Integer getSaleId() {
+        return saleId;
+    }
+
+    public void setSaleId(Integer saleId) {
+        this.saleId = saleId;
     }
 }

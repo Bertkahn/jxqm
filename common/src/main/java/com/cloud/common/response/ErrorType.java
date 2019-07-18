@@ -11,6 +11,8 @@ public enum ErrorType {
      */
 
     //
+    SUPPORT_SELF            (9972, "不能给自己助力哦"), // 不能给自己助力哦
+    HAS_SUPPORT             (9973, "已助力好友"), // 已助力好友
     ACTIVITY_HAS_JOIN       (9974, "已参加该活动，请直接进入活动页面"), // 已参加该活动，请直接进入活动页面
     USER_NOT_EXIST          (9975, "用户不存在"), // 用户不存在-- 不需要去登录
     PHONE_BIND_ERR          (9976, "已绑定过手机号"), // 已绑定过手机号

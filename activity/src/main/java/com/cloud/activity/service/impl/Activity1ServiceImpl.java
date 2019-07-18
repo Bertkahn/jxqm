@@ -85,16 +85,23 @@ public class Activity1ServiceImpl implements Activity1Service {
     }
 
     @Override
+    @Transactional
     public void supportFriend(Long userId, Long friendId, Long activityId) {
+        if (userId.equals(friendId))
+            Res.fail(ErrorType.SUPPORT_SELF);
         // 注意这里的逻辑,非常重要，并没有写错
         if (isSupport(userId, friendId, activityId) == 1)
-            Res.fail(ErrorType.PARAM_ERR);
+            Res.fail(ErrorType.HAS_SUPPORT);
         Activity1Support activity1Support = new Activity1Support();
         activity1Support.setUserId(friendId);
         activity1Support.setFriendId(userId);
         activity1Support.setActivityId(activityId);
         activity1Support.setCreateTime(TimeUtil.getTimeStamp());
         activity1SupportMapper.insert(activity1Support);
+        //
+        Activity1User activity1User = activity1UserMapper.getByUserIdAndActivityId(friendId, activityId);
+        activity1User.setSupportNum(activity1User.getSupportNum() + 1);
+        activity1UserMapper.updateById(activity1User);
     }
 
     @Override
@@ -129,16 +136,18 @@ public class Activity1ServiceImpl implements Activity1Service {
                 }
             }
         }
-        redis.set(redisKey, page, 10);
+        redis.set(redisKey, page, 5);
         return page;
     }
 
     @Override
     public Map getUserSupportInfo(Long userId, Long activityId) {
-        Map<String, Object> support = activity1UserMapper.getUserSupportInfo(userId, activityId);
-        Map<String, Object> user = userFeign.getUserByUserId(Long.parseLong(support.get("userId").toString()));
-        support.put("nickName", user.get("nickName"));
-        support.put("headPic", user.get("headPic"));
-        return support;
+        Activity1User support = activity1UserMapper.getByUserIdAndActivityId(userId, activityId);
+        Map<String, Object> user = userFeign.getUserByUserId(support.getUserId());
+        Map<String, Object> result = new HashMap<>();
+        result.put("supportNum", support.getSupportNum());
+        result.put("nickName", user.get("nickName"));
+        result.put("headPic", user.get("headPic"));
+        return result;
     }
 }

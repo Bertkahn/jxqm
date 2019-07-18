@@ -18,11 +18,12 @@
         <result column="cityId" property="cityId" />
         <result column="city" property="city" />
         <result column="createTime" property="createTime" />
+        <result column="saleId" property="saleId" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, nickName, trueName, isVerify, phone, headPic, birthYear, birthDay, idCard, age, sex, cityId, city, createTime
+        id, nickName, trueName, isVerify, phone, headPic, birthYear, birthDay, idCard, age, sex, cityId, city, createTime, saleId
     </sql>
     <select id="getUserListByUserIdList" resultType="com.cloud.user.entity.User">
         select * from user where id in

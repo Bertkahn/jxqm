@@ -6,6 +6,7 @@ import com.cloud.activity.entity.Activity1User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,6 @@ public interface Activity1UserMapper extends BaseMapper<Activity1User> {
     @Select("select userId, supportNum from activity_1_user where activityId = #{activityId} order by supportNum desc")
     List<Map<String, Object>> getSupportRankList (@Param("activityId") Long activityId, Page page);
 
-    @Select("select userId, supportNum from activity_1_user where userId = #{userId} and activityId = #{activityId}")
-    Map<String, Object> getUserSupportInfo (@Param("userId") Long userId, @Param("activityId") Long activityId);
+    @Select("select * from activity_1_user where userId = #{userId} and activityId = #{activityId}")
+    Activity1User getByUserIdAndActivityId (@Param("userId") Long userId, @Param("activityId") Long activityId);
 }

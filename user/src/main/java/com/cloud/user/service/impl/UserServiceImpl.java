@@ -72,8 +72,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     @SuppressWarnings("unchecked")
-    public Map wxMinBindPhone(String phone, Integer code, String unionId, String minOpenId, String nickName, String headPic, Integer sex, Long activityId) {
+    public Map wxMinBindPhone(String phone, Integer code, String unionId, String minOpenId, String nickName, String headPic,
+                              Integer sex, Long activityId, Long friendId, Long saleId) {
         // 验证码
         Integer time = TimeUtil.getTimeStamp();
         smsService.verifyCode(phone, code, VerifyCodeConst.bindPhone);
@@ -102,20 +104,12 @@ public class UserServiceImpl implements UserService {
                 userLogin.setToken(CommonUtil.createToken());
                 userLoginMapper.insert(userLogin);
                 // from
-                Long friendId = 0L;
+                // todo
                 Long instId = 0L;
-                Long saleId = 0L;
-                Map<String, Object> fromInfo = redis.get(RedisConst.inviteInfoKey, Map.class);
-                if (CommonUtil.isNotEmpty(fromInfo)) {
-                    friendId = Long.parseLong(fromInfo.get("friendId").toString());
-                    instId = Long.parseLong(fromInfo.get("instId").toString());
-                    saleId = Long.parseLong(fromInfo.get("saleId").toString());
-                }
                 UserFrom userFrom = new UserFrom();
                 userFrom.setUserId(user.getId());
                 userFrom.setDevice(DeviceConst.wxMin);
                 userFrom.setFriendId(friendId);
-                userFrom.setInstId(instId);
                 userFrom.setSaleId(saleId);
                 if (CommonUtil.isNotEmpty(activityId)) {
                     userFrom.setFromType(1);// 活动来的
@@ -154,8 +148,8 @@ public class UserServiceImpl implements UserService {
                 user = userMapper.selectById(userLogin.getUserId());
             }
         } else {
-            if (CommonUtil.isNotEmpty(userLogin.getPhone())) {
-                // 已绑定手机
+            if (CommonUtil.isNotEmpty(userLogin.getPhone()) && !userLogin.getPhone().equals(phone)) {
+                // 已绑定手机且不是该手机号
                 Res.fail(ErrorType.PHONE_BIND_ERR);
             }
             // 该微信号未绑定手机号
@@ -184,11 +178,12 @@ public class UserServiceImpl implements UserService {
         // return
         Map<String, Object> result = new HashMap<>();
         result.put("userId", user.getId());
+        result.put("saleId", user.getSaleId());
         result.put("phone", user.getPhone());
         result.put("nickName", user.getNickName());
         result.put("trueName", user.getTrueName());
         result.put("isVerify", user.getIsVerify());
-        result.put("birth", user.getBirthYear() * 10000 + user.getBirthDay());
+        result.put("birth", CommonUtil.isNotEmpty(user.getBirthDay()) ? user.getBirthYear() * 10000 + user.getBirthDay() : 0);
         result.put("headPic", AliUtil.parseOssImg(user.getHeadPic()));
         result.put("sex", user.getSex());
         result.put("city", user.getCity());

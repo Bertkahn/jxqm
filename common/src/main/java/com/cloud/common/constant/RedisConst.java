@@ -11,10 +11,10 @@ public class RedisConst {
     public static final String apiLogKey = "ALK-";
     // 后台 log
     public static final String adminLogKey = "ADLK-";
-    // 用户邀请信息
-    public static final String inviteInfoKey = "IIK-";
     // UserId
     public static final String lastUserIdKey = "LUIK-";
     // activity
     public static final String activityKey = "ACTK-";
+    // encodeParam
+    public static final String encodeParamKey = "ENCK-";
 }

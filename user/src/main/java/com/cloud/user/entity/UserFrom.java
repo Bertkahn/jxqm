@@ -27,9 +27,6 @@ private static final long serialVersionUID=1L;
     @TableField("saleId")
     private Long saleId;
 
-    @TableField("instId")
-    private Long instId;
-
     /**
      * 类型1：活动
      */
@@ -69,14 +66,6 @@ private static final long serialVersionUID=1L;
         this.saleId = saleId;
     }
 
-    public Long getInstId() {
-        return instId;
-    }
-
-    public void setInstId(Long instId) {
-        this.instId = instId;
-    }
-
     public Integer getFromType() {
         return fromType;
     }
@@ -107,7 +96,6 @@ private static final long serialVersionUID=1L;
         "userId=" + userId +
         ", friendId=" + friendId +
         ", saleId=" + saleId +
-        ", instId=" + instId +
         ", fromType=" + fromType +
         ", fromId=" + fromId +
         ", device=" + device +

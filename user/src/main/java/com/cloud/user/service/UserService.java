@@ -13,7 +13,8 @@ public interface UserService {
     // 微信登录
     Map loginByUnionId (String unionId);
     // 小程序绑定手机号
-    Map wxMinBindPhone (String phone, Integer code, String unionId, String minOpenId, String nickName, String headPic, Integer sex, Long activityId);
+    Map wxMinBindPhone (String phone, Integer code, String unionId, String minOpenId, String nickName,
+                        String headPic, Integer sex, Long activityId, Long friendId, Long saleId);
     // system
     UserAuthDto getUserAuthByToken (String token);
     // system

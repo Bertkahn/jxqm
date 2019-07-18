@@ -12,6 +12,7 @@ import com.cloud.user.dao.VerifyCodeMapper;
 import com.cloud.user.entity.User;
 import com.cloud.user.entity.VerifyCode;
 import com.cloud.user.service.SmsService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -25,6 +26,9 @@ public class SmsServiceImpl implements SmsService {
     private static final Integer ipNumLimit = 30;
     private static final Integer timeLimit = 30 * TimeConst.minute;
     private static final Integer codeExpireTime = 10 * TimeConst.minute;
+
+    @Value("${server.product}")
+    private boolean product;
 
     @Resource
     private VerifyCodeMapper verifyCodeMapper;
@@ -128,7 +132,7 @@ public class SmsServiceImpl implements SmsService {
 
     // 创建验证码
     private Integer createCode (String phone) {
-        if (phone.equals("18000000000"))
+        if (phone.equals("18000000000") || !product)
             return 111111;
         return CommonUtil.createRandomNum(6);
     }

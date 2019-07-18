@@ -29,6 +29,9 @@ private static final long serialVersionUID=1L;
 
     private String remark;
 
+    @TableField("supportNum")
+    private Integer supportNum;
+
     @TableField("createTime")
     private Integer createTime;
 
@@ -91,5 +94,13 @@ private static final long serialVersionUID=1L;
         ", remark=" + remark +
         ", createTime=" + createTime +
         "}";
+    }
+
+    public Integer getSupportNum() {
+        return supportNum;
+    }
+
+    public void setSupportNum(Integer supportNum) {
+        this.supportNum = supportNum;
     }
 }

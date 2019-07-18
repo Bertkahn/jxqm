@@ -7,7 +7,6 @@
         <id column="userId" property="userId" />
         <result column="friendId" property="friendId" />
         <result column="saleId" property="saleId" />
-        <result column="instId" property="instId" />
         <result column="fromType" property="fromType" />
         <result column="fromId" property="fromId" />
         <result column="device" property="device" />
@@ -15,7 +14,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        userId, friendId, saleId, instId, fromType, fromId, device
+        userId, friendId, saleId, fromType, fromId, device
     </sql>
 
 </mapper>
