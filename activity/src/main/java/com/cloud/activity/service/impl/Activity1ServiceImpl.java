@@ -12,6 +12,7 @@ import com.cloud.activity.entity.UserJoin;
 import com.cloud.activity.service.Activity1Service;
 import com.cloud.common.constant.RedisConst;
 import com.cloud.common.constant.TimeConst;
+import com.cloud.common.dto.TableDto;
 import com.cloud.common.feign.UserFeign;
 import com.cloud.common.redis.Redis;
 import com.cloud.common.response.ErrorType;
@@ -149,5 +150,44 @@ public class Activity1ServiceImpl implements Activity1Service {
         result.put("nickName", user.get("nickName"));
         result.put("headPic", user.get("headPic"));
         return result;
+    }
+
+    @Override
+    public Page getActivityUserPage(TableDto tableDto) {
+        Page<Map<String, Object>> page = new Page<>(tableDto.getCurrent(), tableDto.getSize());
+        page.setRecords(activity1UserMapper.getActivityUserList(tableDto, page));
+        List<Long> userIdList = new ArrayList<>();
+        for (Map<String, Object> item : page.getRecords()) {
+            userIdList.add(Long.parseLong(item.get("userId").toString()));
+        }
+        List<Map<String, Object>> userList = userFeign.getUserListByUserIdList(userIdList);
+        for (Map<String, Object> item : page.getRecords()) {
+            for (Map<String, Object> user : userList) {
+                if (item.get("userId").toString().equals(user.get("id").toString())) {
+                    item.put("trueName", user.get("trueName"));
+                    item.put("sex", user.get("sex"));
+                    item.put("age", user.get("age"));
+                    break;
+                }
+            }
+        }
+        return page;
+    }
+
+    @Override
+    public List getActivityUserImgList(Long userId) {
+        List<Activity1UserImg> imgList = activity1UserImgMapper.getImgListByUserId(userId);
+        for (Activity1UserImg img : imgList) {
+            img.setImg(AliUtil.parseOssImg(img.getImg()));
+        }
+        return imgList;
+    }
+
+    @Override
+    public void verifyActivityUser(Long id, Integer status) {
+        Activity1User activity1User = new Activity1User();
+        activity1User.setId(id);
+        activity1User.setStatus(status);
+        activity1UserMapper.updateById(activity1User);
     }
 }

@@ -6,6 +6,7 @@
     <resultMap id="BaseResultMap" type="com.cloud.admin.entity.AuthGroup">
         <id column="id" property="id" />
         <result column="name" property="name" />
+        <result column="remark" property="remark"/>
         <result column="authType" property="authType" />
         <result column="rules" property="rules" />
         <result column="instId" property="instId" />
@@ -13,7 +14,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, authType, rules, instId
+        id, name, remark, authType, rules, instId
     </sql>
     <select id="getAuthGroupPage"
             resultType="com.cloud.admin.entity.AuthGroup">

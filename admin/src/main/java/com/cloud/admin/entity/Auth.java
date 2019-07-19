@@ -23,6 +23,8 @@ public class Auth implements Serializable {
 
     private String name;
 
+    private String remark;
+
     @TableField("menuId")
     private Long menuId;
 
@@ -90,5 +92,13 @@ public class Auth implements Serializable {
 
     public void setIsSystem(Integer isSystem) {
         this.isSystem = isSystem;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

@@ -1,6 +1,26 @@
 package com.cloud.common.constant;
 
-public class AuthRuleConst {
+public class AuthConst {
+    public class common {
+        // 我拥有的客户
+        public static final String myCustomer = "b";
+    }
+    public class tec {
+
+    }
+    public class plat {
+        // 我拥有的客户
+        public static final String activity1 = "c";
+    }
+    public class inst {
+
+    }
+    public class branch {
+
+    }
+
+
+
     /****************************/
     // 权限管理
     public static final String masterAuth = "ma";

@@ -40,6 +40,9 @@ public class AuthServiceImpl implements AuthService {
             List<Map<String, Object>> masterMenuList = authMenuMapper.getMenuListByAuth(com.cloud.common.aop.Auth.platAuthType);
             if (CommonUtil.isNotEmpty(masterMenuList))
                 menuList.addAll(masterMenuList);
+            List<Map<String, Object>> commonMenuList = authMenuMapper.getMenuListByAuth(com.cloud.common.aop.Auth.commonAuthType);
+            if (CommonUtil.isNotEmpty(commonMenuList))
+                menuList.addAll(commonMenuList);
         } else {
             String[] ruleList = rules.replaceAll("[0-9]", "").split(",");
             menuList = authMenuMapper.getMenuListByAliasList(ruleList);

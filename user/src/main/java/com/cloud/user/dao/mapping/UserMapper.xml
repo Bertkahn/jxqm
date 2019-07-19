@@ -31,5 +31,16 @@
             #{item}
         </foreach>
     </select>
+    <select id="getMyCustomerList" resultType="java.util.Map">
+        select b.* from user_from a
+        inner join user b
+        on a.userId = b.id
+        where a.saleId = #{saleId}
+        <if test="table.sort != null">
+            order by
+            ${'b.' + table.sort}
+            ${table.sortType}
+        </if>
+    </select>
 
 </mapper>

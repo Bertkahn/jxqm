@@ -10,6 +10,7 @@
         <result column="want" property="want" />
         <result column="remark" property="remark" />
         <result column="supportNum" property="supportNum" />
+        <result column="status" property="status" />
         <result column="createTime" property="createTime" />
     </resultMap>
 
@@ -17,5 +18,16 @@
     <sql id="Base_Column_List">
         id, activityId, userId, want, remark, supportNum, createTime
     </sql>
+    <select id="getActivityUserList" resultType="java.util.Map">
+        select * from activity_1_user where activityId = 1
+        <foreach collection="table.search" item="item" index="index" separator="and" open="and">
+            ${item.key} ${item.symbol} #{item.value}
+        </foreach>
+        <if test="table.sort != null">
+            order by
+            ${table.sort}
+            ${table.sortType}
+        </if>
+    </select>
 
 </mapper>

@@ -32,6 +32,9 @@ private static final long serialVersionUID=1L;
     @TableField("supportNum")
     private Integer supportNum;
 
+    // 0：待审核，1：入选，2：淘汰
+    private Integer status;
+
     @TableField("createTime")
     private Integer createTime;
 
@@ -102,5 +105,13 @@ private static final long serialVersionUID=1L;
 
     public void setSupportNum(Integer supportNum) {
         this.supportNum = supportNum;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

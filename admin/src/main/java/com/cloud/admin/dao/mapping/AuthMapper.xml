@@ -8,6 +8,7 @@
         <id column="id" property="id"/>
         <result column="alias" property="alias"/>
         <result column="name" property="name"/>
+        <result column="remark" property="remark"/>
         <result column="menuId" property="menuId"/>
         <result column="authType" property="authType"/>
         <result column="isSystem" property="isSystem"/>
@@ -15,7 +16,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, alias, name, menuId, authType, isSystem
+        id, alias, name, remark, menuId, authType, isSystem
     </sql>
     <select id="getAuthList" resultType="java.util.Map">
         select a.*, b.name menuName from auth a

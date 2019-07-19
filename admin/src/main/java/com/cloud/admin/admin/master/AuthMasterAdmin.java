@@ -3,7 +3,7 @@ package com.cloud.admin.admin.master;
 import com.cloud.admin.admin.AdminController;
 import com.cloud.admin.service.AuthService;
 import com.cloud.common.aop.Auth;
-import com.cloud.common.constant.AuthRuleConst;
+import com.cloud.common.constant.AuthConst;
 import com.cloud.common.response.ErrorType;
 import com.cloud.common.response.Res;
 import com.cloud.common.util.CommonUtil;
@@ -23,14 +23,14 @@ public class AuthMasterAdmin extends AdminController {
 
     // 管理员权限编辑时获取权限组
     @RequestMapping("/getAuthGroupList")
-    @Auth(alias = AuthRuleConst.masterMasterAdmin, level = Auth.query)
+    @Auth(alias = AuthConst.masterMasterAdmin, level = Auth.query)
     public void getAuthGroupList () {
         Res.success(authService.getAuthGroupList(Auth.masterAuthType));
     }
 
     // 权限规则列表
     @RequestMapping("/getAuthPage")
-    @Auth(alias = AuthRuleConst.masterAuth, level = Auth.query)
+    @Auth(alias = AuthConst.masterAuth, level = Auth.query)
     public void getAuthPage () {
         List<String> paramList = Arrays.asList("alias", "name", "menuName", "authType");
         Res.success(authService.getAuthPage(getTable(paramList)));
@@ -38,7 +38,7 @@ public class AuthMasterAdmin extends AdminController {
 
     // 添加权限规则
     @RequestMapping("/addAuth")
-    @Auth(alias = AuthRuleConst.masterAuth, level = Auth.add)
+    @Auth(alias = AuthConst.masterAuth, level = Auth.add)
     public void addAuth () {
         String alias = postString("alias");
         String name = postString("name");
@@ -52,7 +52,7 @@ public class AuthMasterAdmin extends AdminController {
 
     // 编辑权限规则
     @RequestMapping("/editAuth")
-    @Auth(alias = AuthRuleConst.masterAuth, level = Auth.edit)
+    @Auth(alias = AuthConst.masterAuth, level = Auth.edit)
     public void editAuth () {
         Long authId = postLong("id");
         String name = postString("name");
@@ -65,7 +65,7 @@ public class AuthMasterAdmin extends AdminController {
 
     // 权限规则对应菜单
     @RequestMapping("/getMenuListByAuth")
-    @Auth(alias = AuthRuleConst.masterAuth, level = Auth.query)
+    @Auth(alias = AuthConst.masterAuth, level = Auth.query)
     public void getMenuListByAuth () {
         Integer authType = postInt("authType");
         if (CommonUtil.isEmpty(authType))
@@ -75,7 +75,7 @@ public class AuthMasterAdmin extends AdminController {
 
     // 删除权限规则
     @RequestMapping("/delAuth")
-    @Auth(alias = AuthRuleConst.masterAuth, level = Auth.delete)
+    @Auth(alias = AuthConst.masterAuth, level = Auth.delete)
     public void delAuth () {
         Long authId = postLong("authId");
         if (CommonUtil.isEmpty(authId))
@@ -86,7 +86,7 @@ public class AuthMasterAdmin extends AdminController {
 
     // 菜单列表
     @RequestMapping("/getMenuTreeList")
-    @Auth(alias = AuthRuleConst.masterAuthMenu, level = Auth.query)
+    @Auth(alias = AuthConst.masterAuthMenu, level = Auth.query)
     public void getMenuTreeList () {
         List<String> paramList = Arrays.asList("path", "name", "authType");
         Res.success(authService.getMenuTreeList(getTable(paramList)));
@@ -94,7 +94,7 @@ public class AuthMasterAdmin extends AdminController {
 
     // 选择父级菜单列表
     @RequestMapping("/getSelectMenuTreeList")
-    @Auth(alias = AuthRuleConst.masterAuthMenu, level = Auth.query)
+    @Auth(alias = AuthConst.masterAuthMenu, level = Auth.query)
     public void getSelectMenuTreeList () {
         Integer authType = postInt("authType");
         if (CommonUtil.isEmpty(authType))
@@ -104,7 +104,7 @@ public class AuthMasterAdmin extends AdminController {
 
     // 添加菜单
     @RequestMapping("/addMenu")
-    @Auth(alias = AuthRuleConst.masterAuthMenu, level = Auth.add)
+    @Auth(alias = AuthConst.masterAuthMenu, level = Auth.add)
     public void addMenu () {
         String name = postString("name");
         String path = postString("path", "");
@@ -120,7 +120,7 @@ public class AuthMasterAdmin extends AdminController {
 
     // 编辑菜单
     @RequestMapping("/editMenu")
-    @Auth(alias = AuthRuleConst.masterAuthMenu, level = Auth.edit)
+    @Auth(alias = AuthConst.masterAuthMenu, level = Auth.edit)
     public void editMenu () {
         Long menuId = postLong("id");
         String name = postString("name");
@@ -136,7 +136,7 @@ public class AuthMasterAdmin extends AdminController {
 
     // 删除菜单
     @RequestMapping("/delMenu")
-    @Auth(alias = AuthRuleConst.masterAuthMenu, level = Auth.delete)
+    @Auth(alias = AuthConst.masterAuthMenu, level = Auth.delete)
     public void delMenu () {
         Long menuId = postLong("menuId");
         if (CommonUtil.isEmpty(menuId))
@@ -147,7 +147,7 @@ public class AuthMasterAdmin extends AdminController {
 
     // 权限组列表
     @RequestMapping("/getAuthGroupPage")
-    @Auth(alias = AuthRuleConst.masterAuthGroup, level = Auth.query)
+    @Auth(alias = AuthConst.masterAuthGroup, level = Auth.query)
     public void getAuthGroupPage () {
         List<String> paramList = Arrays.asList("name", "authType");
         Res.success(authService.getAuthGroupPage(getTable(paramList)));
@@ -155,7 +155,7 @@ public class AuthMasterAdmin extends AdminController {
 
     // 添加权限组
     @RequestMapping("/addAuthGroup")
-    @Auth(alias = AuthRuleConst.masterAuthGroup, level = Auth.add)
+    @Auth(alias = AuthConst.masterAuthGroup, level = Auth.add)
     public void addAuthGroup () {
         String name = postString("name");
         Integer authType = postInt("authType");
@@ -168,7 +168,7 @@ public class AuthMasterAdmin extends AdminController {
 
     // 编辑权限组
     @RequestMapping("/editAuthGroup")
-    @Auth(alias = AuthRuleConst.masterAuthGroup, level = Auth.edit)
+    @Auth(alias = AuthConst.masterAuthGroup, level = Auth.edit)
     public void editAuthGroup () {
         Long groupId = postLong("id");
         String name = postString("name");
@@ -181,7 +181,7 @@ public class AuthMasterAdmin extends AdminController {
 
     // 删除权限组
     @RequestMapping("/delAuthGroup")
-    @Auth(alias = AuthRuleConst.masterAuthGroup, level = Auth.delete)
+    @Auth(alias = AuthConst.masterAuthGroup, level = Auth.delete)
     public void delAuthGroup () {
         Long groupId = postLong("groupId");
         if (CommonUtil.isEmpty(groupId))
@@ -192,7 +192,7 @@ public class AuthMasterAdmin extends AdminController {
 
     // 获取可选权限
     @RequestMapping("/getChooseAuthList")
-    @Auth(alias = AuthRuleConst.masterAuthGroup, level = Auth.query)
+    @Auth(alias = AuthConst.masterAuthGroup, level = Auth.query)
     public void getChooseAuthList () {
         Integer authType = postInt("authType");
         if (CommonUtil.isEmpty(authType))

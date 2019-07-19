@@ -13,6 +13,7 @@ import com.cloud.admin.dao.AdminMapper;
 import com.cloud.admin.entity.Admin;
 import com.cloud.admin.service.AdminService;
 import com.cloud.common.util.CommonUtil;
+import com.cloud.common.util.MD5Util;
 import com.cloud.common.util.TimeUtil;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,11 @@ public class AdminServiceImpl implements AdminService {
     private AdminMapper adminMapper;
     @Resource
     private AuthGroupMapper authGroupMapper;
+
+    public static void  main(String[] s) {
+        String d = MD5Util.encrypt("da%1!@daq" + "111111" + "12!2e3#");
+        System.out.println(d);
+    }
 
     @Override
     public void delAdmin(Long adminId, Integer authType) {

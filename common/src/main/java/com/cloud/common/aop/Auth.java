@@ -7,6 +7,7 @@ import java.lang.annotation.*;
 @Documented
 public @interface Auth {
     //
+    int commonAuthType = 0;
     int masterAuthType = 1;
     int platAuthType = 2;
     int instAuthType = 3;

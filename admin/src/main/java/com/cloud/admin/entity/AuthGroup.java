@@ -21,6 +21,8 @@ private static final long serialVersionUID=1L;
 
     private String name;
 
+    private String remark;
+
     @TableField("authType")
     private Integer authType;
 
@@ -79,5 +81,13 @@ private static final long serialVersionUID=1L;
         ", rules=" + rules +
         ", instId=" + instId +
         "}";
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

@@ -1,9 +1,11 @@
 package com.cloud.user.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cloud.common.constant.DeviceConst;
 import com.cloud.common.constant.RedisConst;
 import com.cloud.common.constant.TimeConst;
 import com.cloud.common.constant.VerifyCodeConst;
+import com.cloud.common.dto.TableDto;
 import com.cloud.common.dto.UserAuthDto;
 import com.cloud.common.redis.Redis;
 import com.cloud.common.response.ErrorType;
@@ -52,6 +54,7 @@ public class UserServiceImpl implements UserService {
         user.setTrueName(trueName);
         user.setBirthDay(birth % 10000);
         user.setBirthYear(birth / 10000);
+        user.setAge(Integer.parseInt(TimeUtil.formatTime("Y")) - birth / 10000);
         user.setSex(sex);
         user.setCity(city);
         user.setCityId(cityId);
@@ -249,6 +252,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getUserListByUserIdList(List<Long> userIdList) {
         return userMapper.getUserListByUserIdList(userIdList);
+    }
+
+    @Override
+    public Page getMyCustomerPage(Long saleId, TableDto tableDto) {
+        Page<Map> page = new Page<>(tableDto.getCurrent(), tableDto.getSize());
+        page.setRecords(userMapper.getMyCustomerList(saleId, tableDto, page));
+        return page;
     }
 
 // 注册

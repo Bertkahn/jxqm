@@ -1,6 +1,7 @@
 package com.cloud.activity.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cloud.common.dto.TableDto;
 
 import java.util.List;
 import java.util.Map;
@@ -16,4 +17,9 @@ public interface Activity1Service {
     Page getSupportRankPage (Long activityId, Integer current);
 
     Map getUserSupportInfo (Long userId, Long activityId);
+
+    /********* admin ********/
+    Page getActivityUserPage (TableDto tableDto);
+    List getActivityUserImgList (Long userId);
+    void verifyActivityUser (Long id, Integer status);
 }

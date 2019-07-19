@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cloud.activity.entity.Activity1User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.cloud.common.dto.TableDto;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -25,4 +26,8 @@ public interface Activity1UserMapper extends BaseMapper<Activity1User> {
 
     @Select("select * from activity_1_user where userId = #{userId} and activityId = #{activityId}")
     Activity1User getByUserIdAndActivityId (@Param("userId") Long userId, @Param("activityId") Long activityId);
+
+    /******* admin *******/
+    List<Map<String, Object>> getActivityUserList (@Param("table")TableDto tableDto, Page page);
+
 }

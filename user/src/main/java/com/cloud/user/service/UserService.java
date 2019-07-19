@@ -1,5 +1,7 @@
 package com.cloud.user.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cloud.common.dto.TableDto;
 import com.cloud.common.dto.UserAuthDto;
 import com.cloud.user.entity.User;
 
@@ -23,6 +25,9 @@ public interface UserService {
     User getUserByUserId (Long userId);
 
     List<User> getUserListByUserIdList (List<Long> userIdList);
+
+    /******* admin *******/
+    Page getMyCustomerPage (Long saleId, TableDto tableDto);
 //    // sun
 //    // 注册
 //    User register (String phone, String password, Integer code);

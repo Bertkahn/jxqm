@@ -3,7 +3,7 @@ package com.cloud.admin.admin.master;
 import com.cloud.admin.admin.AdminController;
 import com.cloud.admin.service.AdminService;
 import com.cloud.common.aop.Auth;
-import com.cloud.common.constant.AuthRuleConst;
+import com.cloud.common.constant.AuthConst;
 import com.cloud.common.response.ErrorType;
 import com.cloud.common.response.Res;
 import com.cloud.common.util.CommonUtil;
@@ -23,7 +23,7 @@ public class AdminMasterAdmin extends AdminController {
 
     // 删除管理员
     @RequestMapping("/delAdmin")
-    @Auth(alias = AuthRuleConst.masterMasterAdmin, level = Auth.delete)
+    @Auth(alias = AuthConst.masterMasterAdmin, level = Auth.delete)
     public void delAdmin () {
         Long adminId = postLong("adminId");
         if (CommonUtil.isEmpty(adminId))
@@ -34,7 +34,7 @@ public class AdminMasterAdmin extends AdminController {
 
     // 获取管理员
     @RequestMapping("/getAdminPage")
-    @Auth(alias = AuthRuleConst.masterMasterAdmin, level = Auth.query)
+    @Auth(alias = AuthConst.masterMasterAdmin, level = Auth.query)
     public void getAdminPage () {
         List<String> paramList = Arrays.asList("trueName", "phone", "workId", "status", "createTime");
         Res.success(adminService.getAdminPage(Auth.masterAuthType, getTable(paramList)));
@@ -42,7 +42,7 @@ public class AdminMasterAdmin extends AdminController {
 
     // 编辑管理员
     @RequestMapping("/editAdmin")
-    @Auth(alias = AuthRuleConst.masterMasterAdmin, level = Auth.edit)
+    @Auth(alias = AuthConst.masterMasterAdmin, level = Auth.edit)
     public void editAdmin () {
         Long adminId = postLong("id");
         String trueName = postString("trueName");
@@ -62,7 +62,7 @@ public class AdminMasterAdmin extends AdminController {
 
     // 添加管理员
     @RequestMapping("/addAdmin")
-    @Auth(alias = AuthRuleConst.masterMasterAdmin, level = Auth.add)
+    @Auth(alias = AuthConst.masterMasterAdmin, level = Auth.add)
     public void addAdmin () {
         String trueName = postString("trueName");
         String phone = postString("phone");
