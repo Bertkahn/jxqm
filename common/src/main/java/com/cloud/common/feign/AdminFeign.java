@@ -26,6 +26,12 @@ public class AdminFeign extends BaseFeign {
         json.put("adminId", adminId);
         return parseResponse(adminConnect.getAdminAuthByAdminId(json), AdminAuthDto.class);
     }
-
+    //jiang
+    @SuppressWarnings("unchecked")
+    public List<Map<String, Object>> getInstNameListByIdList(List<Long> idList){
+        Map<String, Object> json = new HashMap<>();
+        json.put("idList", idList);
+        return parseResponse(adminConnect.getInstNameListByIdList(json), List.class);
+    }
 
 }

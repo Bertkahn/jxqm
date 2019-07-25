@@ -34,7 +34,7 @@ private static final long serialVersionUID=1L;
     private String description;
 
     /**
-     * 0：未启用，1：正常，2：结束
+     * 0：未启用(不展示在用户列表)，1：未开始，2：正常，3：结束，4：主动关闭
      */
     private Integer status;
 

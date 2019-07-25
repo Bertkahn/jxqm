@@ -16,4 +16,9 @@ public class AdminConnectImpl implements AdminConnect {
     public String getAdminAuthByAdminId(Map map) {
         return null;
     }
+
+    @Override
+    public String getInstNameListByIdList(Map map) {
+        return null;
+    }
 }

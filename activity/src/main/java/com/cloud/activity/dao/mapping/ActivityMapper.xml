@@ -21,4 +21,18 @@
         id, instId, type, name, img, description, status, startTime, endTime, createTime
     </sql>
 
+    <select id="getActivityList" resultType="java.util.Map">
+        select * from activity
+        <where>
+            <foreach collection="table.search" item="item" index="index" separator="and">
+                ${item.key} ${item.symbol} #{item.value}
+            </foreach>
+        </where>
+        <if test="table.sort != null">
+            order by
+            ${table.sort}
+            ${table.sortType}
+        </if>
+    </select>
+
 </mapper>

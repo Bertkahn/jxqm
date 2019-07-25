@@ -10,10 +10,15 @@ import java.util.Map;
 @FeignClient(value = "admin", fallback = AdminConnectImpl.class)
 public interface AdminConnect {
     String getAdminAuthByToken = "/server/admin/getAdminAuthByToken";
-    String getAdminAuthByAdminId = "/server/admin/getAdminAuthByAdminId";
     @RequestMapping(value = getAdminAuthByToken, method = RequestMethod.POST, consumes = "application/json")
     String getAdminAuthByToken (@RequestBody Map map);
+
+    String getAdminAuthByAdminId = "/server/admin/getAdminAuthByAdminId";
     @RequestMapping(value = getAdminAuthByAdminId, method = RequestMethod.POST, consumes = "application/json")
     String getAdminAuthByAdminId (@RequestBody Map map);
+
+    String getInstNameListByIdList = "/server/inst/getInstNameListByIdList";
+    @RequestMapping(value = getInstNameListByIdList, method = RequestMethod.POST, consumes = "application/json")
+    String getInstNameListByIdList(@RequestBody Map map);
 
 }

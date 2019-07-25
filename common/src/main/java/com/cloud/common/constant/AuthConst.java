@@ -9,11 +9,15 @@ public class AuthConst {
 
     }
     public class plat {
-        // 我拥有的客户
+        // 活动1
         public static final String activity1 = "c";
+        //活动列表
+        public static final String activityList = "d";
+
     }
     public class inst {
-
+        //活动列表
+        public static final String activityList = "e";
     }
     public class branch {
 

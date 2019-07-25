@@ -21,7 +21,7 @@ public class Activity1Admin extends AdminController {
     private Activity1Service activity1Service;
 
     // plat
-    // 我的客户，所有人都可以有
+    // 参加活动的用户
     @Auth(alias = AuthConst.plat.activity1, level = Auth.query)
     @RequestMapping("/getActivityUserPage")
     public void getActivityUserPage () {
