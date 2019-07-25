@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.activity.dao.ActivityFilesMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cloud.activity.entity.ActivityFiles">
+        <id column="id" property="id" />
+        <result column="url" property="url" />
+        <result column="activityId" property="activityId" />
+        <result column="name" property="name" />
+        <result column="type" property="type" />
+        <result column="createTime" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, url, activityId, name, type, createTime
+    </sql>
+
+    <!--jiang-->
+    <select id="selectActivityFiles" resultType="java.util.Map">
+        select * from activity_files
+        where activityId = #{activityId}
+        <foreach collection="table.search" item="item" index="index" separator="and" open="and">
+            ${item.key} ${item.symbol} #{item.value}
+        </foreach>
+        <if test="table.sort != null">
+            order by
+            ${table.sort}
+            ${table.sortType}
+        </if>
+    </select>
+</mapper>
