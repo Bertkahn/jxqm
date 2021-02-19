@@ -26,8 +26,9 @@ public class AdminMasterAdmin extends AdminController {
     @Auth(alias = AuthConst.masterMasterAdmin, level = Auth.delete)
     public void delAdmin () {
         Long adminId = postLong("adminId");
-        if (CommonUtil.isEmpty(adminId))
+        if (CommonUtil.isEmpty(adminId)) {
             Res.fail(ErrorType.PARAM_ERR);
+        }
         adminService.delAdmin(adminId, Auth.masterAuthType);
         Res.success();
     }
@@ -50,26 +51,30 @@ public class AdminMasterAdmin extends AdminController {
         String password = postString("password");
         Integer status = postInt("status", 0);
         Long groupId = postLong("groupId", 0L);
-        if (CommonUtil.isEmpty(adminId) || CommonUtil.isEmpty(trueName) || CommonUtil.isEmpty(phone))
+        if (CommonUtil.isEmpty(adminId) || CommonUtil.isEmpty(trueName) || CommonUtil.isEmpty(phone)) {
             Res.fail(ErrorType.PARAM_ERR);
-        if (CommonUtil.isNotEmpty(password) && !CommonUtil.checkString(password, 6, 16))
+        }
+        if (CommonUtil.isNotEmpty(password) && !CommonUtil.checkString(password, 6, 16)) {
             Res.fail(ErrorType.PARAM_ERR);
-        if (getAdminId().equals(adminId))
+        }
+        if (getAdminId().equals(adminId)) {
             Res.fail(ErrorType.EDIT_SELF);
+        }
         adminService.editAdmin(getAdminId(), adminId, 0L, trueName, phone, password, Auth.masterAuthType, groupId, status);
         Res.success();
     }
 
     // 添加管理员
     @RequestMapping("/addAdmin")
-    @Auth(alias = AuthConst.masterMasterAdmin, level = Auth.add)
+//    @Auth(alias = AuthConst.masterMasterAdmin, level = Auth.add)
     public void addAdmin () {
         String trueName = postString("trueName");
         String phone = postString("phone");
         String password = postString("password");
         Long groupId = postLong("groupId", 0L);
-        if (!CommonUtil.checkPhone(phone) || !CommonUtil.checkString(password, 6, 16) || CommonUtil.isEmpty(trueName))
+        if (!CommonUtil.checkPhone(phone) || !CommonUtil.checkString(password, 6, 16) || CommonUtil.isEmpty(trueName)) {
             Res.fail(ErrorType.PARAM_ERR);
+        }
         adminService.addAdmin(0L, trueName, phone, password, Auth.masterAuthType, groupId);
         Res.success();
     }

@@ -19,8 +19,8 @@
         id, alias, name, remark, menuId, authType, isSystem
     </sql>
     <select id="getAuthList" resultType="java.util.Map">
-        select a.*, b.name menuName from auth a
-        left join authMenu b on a.menuId = b.id
+        select a.*, b.name menuName from ad_auth a
+        left join ad_authmenu b on a.menuId = b.id
         <where>
             <foreach collection="table.search" item="item" index="index" separator="and">
                 <if test="item.key == 'menuName'">
@@ -33,7 +33,7 @@
         </where>
     </select>
     <select id="getAuthByAliasListAndSystem" resultType="java.util.Map">
-        select * from auth where alias in
+        select * from ad_auth where alias in
         <foreach collection="aliasList" index="index" item="item" open="(" separator="," close=")">
             #{item}
         </foreach>

@@ -25,8 +25,9 @@ public class ActivityClient extends ClientController {
     @RequestMapping("/getUserIsJoin")
     public void getUserIsJoin () {
         Long activityId = postLong("activityId");
-        if (CommonUtil.isEmpty(activityId))
+        if (CommonUtil.isEmpty(activityId)) {
             Res.fail(ErrorType.PARAM_ERR);
+        }
         Res.success(activityService.getUserIsJoin(getUserId(), activityId));
     }
 
@@ -34,8 +35,9 @@ public class ActivityClient extends ClientController {
     @RequestMapping("/getActivityInfo")
     public void getActivityInfo () {
         Long activityId = postLong("activityId");
-        if (CommonUtil.isEmpty(activityId))
+        if (CommonUtil.isEmpty(activityId)) {
             Res.fail(ErrorType.PARAM_ERR);
+        }
         Res.success(activityService.getActivityInfo(activityId));
     }
 }

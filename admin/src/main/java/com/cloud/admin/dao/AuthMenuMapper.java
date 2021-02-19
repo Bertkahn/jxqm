@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public interface AuthMenuMapper extends BaseMapper<AuthMenu> {
 
-    @Select("select * from authMenu where authType = #{authType}")
+    @Select("select * from ad_authmenu where authType = #{authType}")
     List<Map<String, Object>> getMenuListByAuth(@Param("authType") Integer authType);
 
     List<Map<String, Object>> getMenuListByAliasList(@Param("aliasList") String[] aliasList);

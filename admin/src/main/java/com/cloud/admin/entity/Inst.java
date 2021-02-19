@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -14,7 +16,8 @@ import java.io.Serializable;
  * @author sun
  * @since 2019-07-23
  */
-@TableName("inst")
+@Data
+@TableName("ad_inst")
 public class Inst implements Serializable {
 
 private static final long serialVersionUID=1L;
@@ -35,64 +38,4 @@ private static final long serialVersionUID=1L;
     @TableField("createTime")
     private Integer createTime;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getCityId() {
-        return cityId;
-    }
-
-    public void setCityId(Integer cityId) {
-        this.cityId = cityId;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getAddressDetail() {
-        return addressDetail;
-    }
-
-    public void setAddressDetail(String addressDetail) {
-        this.addressDetail = addressDetail;
-    }
-
-    public Integer getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Integer createTime) {
-        this.createTime = createTime;
-    }
-
-    @Override
-    public String toString() {
-        return "Inst{" +
-        "id=" + id +
-        ", name=" + name +
-        ", cityId=" + cityId +
-        ", address=" + address +
-        ", addressDetail=" + addressDetail +
-        ", createTime=" + createTime +
-        "}";
-    }
 }

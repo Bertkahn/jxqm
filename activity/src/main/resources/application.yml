@@ -8,14 +8,14 @@ spring:
   application:
     name: activity
   redis:
-    host: 112.124.47.127
-    password: VOnQpSokMQIjTpdY
+    host: 127.0.0.1
+    password: 123456
     port: 6379
     database: 5
   datasource:
-    url: jdbc:mysql://rm-bp10d27rlb58bmnupio.mysql.rds.aliyuncs.com:3306/sm_activity?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
-    username: sm_child
-    password: dwfer$wew@Wd223
+    url: jdbc:mysql://127.0.0.1:3306/wanshua?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&useSSL=false&serverTimezone=GMT
+    username: root
+    password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 mybatis-plus:

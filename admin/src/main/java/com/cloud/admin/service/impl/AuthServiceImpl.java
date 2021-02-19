@@ -1,6 +1,7 @@
 package com.cloud.admin.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cloud.admin.dao.AdminMapper;
 import com.cloud.admin.dao.AuthGroupMapper;
 import com.cloud.admin.dao.AuthMapper;
@@ -14,13 +15,14 @@ import com.cloud.common.dto.TableDto;
 import com.cloud.common.response.ErrorType;
 import com.cloud.common.response.Res;
 import com.cloud.common.util.CommonUtil;
+import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
 
 @Service
-public class AuthServiceImpl implements AuthService {
+public class AuthServiceImpl extends ServiceImpl<AuthMapper, Auth> implements AuthService {
     @Resource
     private AuthMapper authMapper;
     @Resource
@@ -34,23 +36,25 @@ public class AuthServiceImpl implements AuthService {
     public List getMenu(String rules) {
         List<Map<String, Object>> menuList;
         if (CommonUtil.isEmpty(rules)) {
-            return new ArrayList();
-        } else if (rules.equals("*")) {
+            return Lists.newArrayList();
+        } else if ("*".equals(rules)) {
             menuList = authMenuMapper.getMenuListByAuth(com.cloud.common.aop.Auth.masterAuthType);
             List<Map<String, Object>> masterMenuList = authMenuMapper.getMenuListByAuth(com.cloud.common.aop.Auth.platAuthType);
-            if (CommonUtil.isNotEmpty(masterMenuList))
+            if (CommonUtil.isNotEmpty(masterMenuList)) {
                 menuList.addAll(masterMenuList);
+            }
             List<Map<String, Object>> commonMenuList = authMenuMapper.getMenuListByAuth(com.cloud.common.aop.Auth.commonAuthType);
-            if (CommonUtil.isNotEmpty(commonMenuList))
+            if (CommonUtil.isNotEmpty(commonMenuList)) {
                 menuList.addAll(commonMenuList);
+            }
         } else {
             String[] ruleList = rules.replaceAll("[0-9]", "").split(",");
             menuList = authMenuMapper.getMenuListByAliasList(ruleList);
-            List<Map<String, Object>> findList = new ArrayList<>(menuList);
+            List<Map<String, Object>> findList = Lists.newArrayList(menuList);
             boolean find;
             while (true) {
                 find = false;
-                List<Long> idList = new ArrayList<>();
+                List<Long> idList = Lists.newArrayList();
                 for (Map<String, Object> menu : findList) {
                     Long pid = Long.parseLong(menu.get("pid").toString());
                     if (CommonUtil.isNotEmpty(pid)) {
@@ -58,8 +62,9 @@ public class AuthServiceImpl implements AuthService {
                         find = true;
                     }
                 }
-                if (!find)
+                if (!find) {
                     break;
+                }
                 findList = authMenuMapper.getMenuListByIdList(idList);
                 menuList.addAll(0, findList);
             }
@@ -70,8 +75,9 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public void addAuth(String alias, String name, Long menuId, Integer authType) {
         Auth auth = authMapper.getAuthByAlias(alias);
-        if (auth != null)
+        if (auth != null) {
             Res.fail(ErrorType.ALIAS_EXIST);
+        }
         auth = new Auth();
         auth.setAlias(alias);
         auth.setName(name);

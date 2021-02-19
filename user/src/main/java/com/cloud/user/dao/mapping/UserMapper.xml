@@ -31,16 +31,14 @@
             #{item}
         </foreach>
     </select>
-    <select id="getMyCustomerList" resultType="java.util.Map">
-        select b.* from user_from a
-        inner join user b
-        on a.userId = b.id
-        where a.saleId = #{saleId}
-        <if test="table.sort != null">
-            order by
-            ${'b.' + table.sort}
-            ${table.sortType}
-        </if>
+    <select id="getMyCustomerList" resultType="com.cloud.user.entity.User">
+        select * from user
+        <where>
+            saleId = #{saleId}
+            <foreach collection="table.search" item="item" index="index" separator="and" open="and">
+                ${item.key} ${item.symbol} #{item.value}
+            </foreach>
+        </where>
     </select>
 
 </mapper>

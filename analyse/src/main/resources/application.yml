@@ -1,5 +1,5 @@
 server:
-  port: 50400
+  port: 50700
   worker-id: 4
   datacenter-id: 0
   product: false
@@ -8,13 +8,13 @@ spring:
   application:
     name: analyse
   redis:
-    host: 112.124.47.127
-    password: VOnQpSokMQIjTpdY
+    host: 127.0.0.1
+    password: 123456
     port: 6379
   datasource:
-    url: jdbc:mysql://rm-bp10d27rlb58bmnupio.mysql.rds.aliyuncs.com:3306/sm_analyse?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
-    username: sm_child
-    password: dwfer$wew@Wd223
+    url: jdbc:mysql://127.0.0.1:3306/wanshua?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT
+    username: root
+    password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 mybatis-plus:

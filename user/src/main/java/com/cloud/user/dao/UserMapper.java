@@ -29,5 +29,5 @@ public interface UserMapper extends BaseMapper<User> {
     List<User> getUserListByUserIdList (@Param("idList") List<Long> isList);
 
     /*******  admin  *******/
-    List<Map> getMyCustomerList (@Param("saleId") Long saleId, @Param("table")TableDto tableDto, Page page);
+    List<User> getMyCustomerList (@Param("saleId") Long saleId, @Param("table")TableDto tableDto, Page page);
 }

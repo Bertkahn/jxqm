@@ -26,8 +26,9 @@ public class AdminCommonAdmin extends AdminController {
     public void login () {
         String account = postString("account");
         String password = postString("password");
-        if (CommonUtil.isEmpty(account) || !CommonUtil.checkString(password, 6, 16))
+        if (CommonUtil.isEmpty(account) || !CommonUtil.checkString(password, 6, 16)) {
             Res.fail(ErrorType.PARAM_ERR);
+        }
         Res.success(adminService.login(account, password));
     }
 
@@ -36,8 +37,9 @@ public class AdminCommonAdmin extends AdminController {
     public void changePassword () {
         String password = postString("password");
         String newPassword = postString("newPassword");
-        if (!CommonUtil.checkString(newPassword, 6, 16) || !CommonUtil.checkString(password, 6, 16))
+        if (!CommonUtil.checkString(newPassword, 6, 16) || !CommonUtil.checkString(password, 6, 16)) {
             Res.fail(ErrorType.PARAM_ERR);
+        }
         Res.success(adminService.changePassword(getAdminId(), password, newPassword));
     }
 }

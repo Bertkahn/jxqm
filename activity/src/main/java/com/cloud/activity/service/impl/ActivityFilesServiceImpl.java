@@ -10,7 +10,9 @@ import com.cloud.common.dto.TableDto;
 import com.cloud.common.response.ErrorType;
 import com.cloud.common.response.Res;
 import com.cloud.common.util.CommonUtil;
+import com.cloud.common.util.TimeUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -33,15 +35,26 @@ public class ActivityFilesServiceImpl implements ActivityFilesService {
     }
 
     @Override
-    public void editActivityFiles(Long id, String url, Long activityId, String name) {
+    @Transactional
+    public void editActivityFiles(Long id, String url, String name) {
         ActivityFiles activityFiles = activityFilesMapper.selectById(id);
         if(activityFiles==null)
             Res.fail(ErrorType.NOT_EXIST);
         activityFiles.setUrl(url);
-        activityFiles.setActivityId(activityId);
         activityFiles.setName(name);
         activityFilesMapper.updateById(activityFiles);
 
+    }
+    @Override
+    @Transactional
+    public void insertActivityFiles(Long activityId, String name, Integer type, String url) {
+        ActivityFiles activityFiles = new ActivityFiles();
+        activityFiles.setName(name);
+        activityFiles.setActivityId(activityId);
+        activityFiles.setType(type);
+        activityFiles.setUrl(url);
+        activityFiles.setCreateTime(TimeUtil.getTimeStamp());
+        activityFilesMapper.insert(activityFiles);
     }
 
 }

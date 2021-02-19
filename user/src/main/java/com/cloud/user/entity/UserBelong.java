@@ -3,6 +3,8 @@ package com.cloud.user.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -13,10 +15,13 @@ import java.io.Serializable;
  * @author sun
  * @since 2019-07-11
  */
+@Data
 @TableName("user_belong")
 public class UserBelong implements Serializable {
 
 private static final long serialVersionUID=1L;
+
+    private Long id;
 
     @TableId("userId")
     private Long userId;
@@ -30,46 +35,4 @@ private static final long serialVersionUID=1L;
     @TableField("createTime")
     private Integer createTime;
 
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getSaleId() {
-        return saleId;
-    }
-
-    public void setSaleId(Long saleId) {
-        this.saleId = saleId;
-    }
-
-    public Long getInstId() {
-        return instId;
-    }
-
-    public void setInstId(Long instId) {
-        this.instId = instId;
-    }
-
-    public Integer getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Integer createTime) {
-        this.createTime = createTime;
-    }
-
-    @Override
-    public String toString() {
-        return "UserBelong{" +
-        "userId=" + userId +
-        ", saleId=" + saleId +
-        ", instId=" + instId +
-        ", createTime=" + createTime +
-        "}";
-    }
 }

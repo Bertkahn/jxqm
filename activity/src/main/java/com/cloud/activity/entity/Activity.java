@@ -2,6 +2,8 @@ package com.cloud.activity.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableField;
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -12,6 +14,7 @@ import java.io.Serializable;
  * @author sun
  * @since 2019-07-16
  */
+@Data
 @TableName("activity")
 public class Activity implements Serializable {
 
@@ -47,100 +50,4 @@ private static final long serialVersionUID=1L;
     @TableField("createTime")
     private Integer createTime;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getInstId() {
-        return instId;
-    }
-
-    public void setInstId(Long instId) {
-        this.instId = instId;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public Integer getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Integer startTime) {
-        this.startTime = startTime;
-    }
-
-    public Integer getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Integer endTime) {
-        this.endTime = endTime;
-    }
-
-    public Integer getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Integer createTime) {
-        this.createTime = createTime;
-    }
-
-    @Override
-    public String toString() {
-        return "Activity{" +
-        "id=" + id +
-        ", instId=" + instId +
-        ", type=" + type +
-        ", name=" + name +
-        ", img=" + img +
-        ", description=" + description +
-        ", status=" + status +
-        ", startTime=" + startTime +
-        ", endTime=" + endTime +
-        ", createTime=" + createTime +
-        "}";
-    }
 }

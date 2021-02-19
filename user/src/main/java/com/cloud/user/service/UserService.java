@@ -1,6 +1,7 @@
 package com.cloud.user.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.cloud.common.dto.TableDto;
 import com.cloud.common.dto.UserAuthDto;
 import com.cloud.user.entity.User;
@@ -8,26 +9,37 @@ import com.cloud.user.entity.User;
 import java.util.List;
 import java.util.Map;
 
-public interface UserService {
+public interface UserService extends IService<User> {
 
     // 填写实名信息
-    Map completeUserInfo (Long userId, String trueName, Integer birth, Integer sex, Integer cityId, String city);
+    Map completeUserInfo(Long userId, String trueName, Integer birth, Integer sex, Integer cityId, String city);
+
     // 微信登录
-    Map loginByUnionId (String unionId);
+    Map loginByUnionId(String unionId);
+
     // 小程序绑定手机号
-    Map wxMinBindPhone (String phone, Integer code, String unionId, String minOpenId, String nickName,
-                        String headPic, Integer sex, Long activityId, Long friendId, Long saleId);
-    // system
-    UserAuthDto getUserAuthByToken (String token);
-    // system
-    UserAuthDto getUserAuthByUserId (Long userId);
+    Map wxMinBindPhone(String phone, Integer code, String unionId, String minOpenId, String nickName,
+                       String headPic, Integer sex, Long activityId, Long friendId, Long saleId);
 
-    User getUserByUserId (Long userId);
+    // system
+    UserAuthDto getUserAuthByToken(String token);
 
-    List<User> getUserListByUserIdList (List<Long> userIdList);
+    // system
+    UserAuthDto getUserAuthByUserId(Long userId);
+
+    User getUserByUserId(Long userId);
+
+    List<User> getUserListByUserIdList(List<Long> userIdList);
 
     /******* admin *******/
-    Page getMyCustomerPage (Long saleId, TableDto tableDto);
+    Page getMyCustomerPage(Long saleId, TableDto tableDto);
+
+    void addMyUser(Long sale, String trueName, String phone, String nickName, Integer age, Integer sex);
+
+    void delMyUser(Long id);
+
+    void updateMyUser(Long id, String trueName, String phone, String nickName, Integer age, Integer sex);
+
 //    // sun
 //    // 注册
 //    User register (String phone, String password, Integer code);

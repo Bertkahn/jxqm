@@ -23,6 +23,7 @@ public class ClientController extends BaseController {
 
     protected List<String> noNeedLogin;
 
+    @Override
     @ModelAttribute
     protected void init(){
         super.init();

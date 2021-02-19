@@ -44,8 +44,9 @@ public class AuthMasterAdmin extends AdminController {
         String name = postString("name");
         Long menuId = postLong("menuId", 0L);
         Integer authType = postInt("authType");
-        if (CommonUtil.isEmpty(alias) || CommonUtil.isEmpty(name) || CommonUtil.isEmpty(authType))
+        if (CommonUtil.isEmpty(alias) || CommonUtil.isEmpty(name) || CommonUtil.isEmpty(authType)) {
             Res.fail(ErrorType.PARAM_ERR);
+        }
         authService.addAuth(alias, name, menuId, authType);
         Res.success();
     }
@@ -57,8 +58,9 @@ public class AuthMasterAdmin extends AdminController {
         Long authId = postLong("id");
         String name = postString("name");
         Long menuId = postLong("menuId", 0L);
-        if (CommonUtil.isEmpty(authId) || CommonUtil.isEmpty(name))
+        if (CommonUtil.isEmpty(authId) || CommonUtil.isEmpty(name)) {
             Res.fail(ErrorType.PARAM_ERR);
+        }
         authService.editAuth(authId, name, menuId);
         Res.success();
     }
@@ -68,8 +70,9 @@ public class AuthMasterAdmin extends AdminController {
     @Auth(alias = AuthConst.masterAuth, level = Auth.query)
     public void getMenuListByAuth () {
         Integer authType = postInt("authType");
-        if (CommonUtil.isEmpty(authType))
+        if (CommonUtil.isEmpty(authType)) {
             Res.success(new ArrayList<>());
+        }
         Res.success(authService.getMenuListByAuth(authType));
     }
 
@@ -78,8 +81,9 @@ public class AuthMasterAdmin extends AdminController {
     @Auth(alias = AuthConst.masterAuth, level = Auth.delete)
     public void delAuth () {
         Long authId = postLong("authId");
-        if (CommonUtil.isEmpty(authId))
+        if (CommonUtil.isEmpty(authId)) {
             Res.fail(ErrorType.PARAM_ERR);
+        }
         authService.delAuth(authId);
         Res.success();
     }
@@ -97,8 +101,9 @@ public class AuthMasterAdmin extends AdminController {
     @Auth(alias = AuthConst.masterAuthMenu, level = Auth.query)
     public void getSelectMenuTreeList () {
         Integer authType = postInt("authType");
-        if (CommonUtil.isEmpty(authType))
+        if (CommonUtil.isEmpty(authType)) {
             Res.success(new ArrayList<>());
+        }
         Res.success(authService.getSelectMenuTreeList(authType));
     }
 
@@ -112,8 +117,9 @@ public class AuthMasterAdmin extends AdminController {
         Long pid = postLong("pid", 0L);
         Integer authType = postInt("authType");
         String remark = postString("remark", "");
-        if (CommonUtil.isEmpty(name) || CommonUtil.isEmpty(authType))
+        if (CommonUtil.isEmpty(name) || CommonUtil.isEmpty(authType)) {
             Res.fail(ErrorType.PARAM_ERR);
+        }
         authService.addMenu(name, path, icon, pid, authType, remark);
         Res.success();
     }
@@ -128,8 +134,9 @@ public class AuthMasterAdmin extends AdminController {
         String icon = postString("icon");
         Long pid = postLong("pid", 0L);
         String remark = postString("remark", "");
-        if (CommonUtil.isEmpty(menuId) || CommonUtil.isEmpty(name))
+        if (CommonUtil.isEmpty(menuId) || CommonUtil.isEmpty(name)) {
             Res.fail(ErrorType.PARAM_ERR);
+        }
         authService.editMenu(menuId, name, path, icon, pid, remark);
         Res.success();
     }
@@ -139,8 +146,9 @@ public class AuthMasterAdmin extends AdminController {
     @Auth(alias = AuthConst.masterAuthMenu, level = Auth.delete)
     public void delMenu () {
         Long menuId = postLong("menuId");
-        if (CommonUtil.isEmpty(menuId))
+        if (CommonUtil.isEmpty(menuId)) {
             Res.fail(ErrorType.PARAM_ERR);
+        }
         authService.delMenu(menuId);
         Res.success();
     }
@@ -160,8 +168,9 @@ public class AuthMasterAdmin extends AdminController {
         String name = postString("name");
         Integer authType = postInt("authType");
         String rules = postString("rules");
-        if (CommonUtil.isEmpty(name) || CommonUtil.isEmpty(authType) || CommonUtil.isEmpty(rules))
+        if (CommonUtil.isEmpty(name) || CommonUtil.isEmpty(authType) || CommonUtil.isEmpty(rules)) {
             Res.fail(ErrorType.PARAM_ERR);
+        }
         authService.addAuthGroup(name, authType, rules, 0L, getRules());
         Res.success();
     }
@@ -173,8 +182,9 @@ public class AuthMasterAdmin extends AdminController {
         Long groupId = postLong("id");
         String name = postString("name");
         String rules = postString("rules");
-        if (CommonUtil.isEmpty(name) || CommonUtil.isEmpty(groupId) || CommonUtil.isEmpty(rules))
+        if (CommonUtil.isEmpty(name) || CommonUtil.isEmpty(groupId) || CommonUtil.isEmpty(rules)) {
             Res.fail(ErrorType.PARAM_ERR);
+        }
         authService.editAuthGroup(groupId, name, rules, getRules());
         Res.success();
     }
@@ -184,8 +194,9 @@ public class AuthMasterAdmin extends AdminController {
     @Auth(alias = AuthConst.masterAuthGroup, level = Auth.delete)
     public void delAuthGroup () {
         Long groupId = postLong("groupId");
-        if (CommonUtil.isEmpty(groupId))
+        if (CommonUtil.isEmpty(groupId)) {
             Res.fail(ErrorType.PARAM_ERR);
+        }
         authService.delAuthGroup(groupId);
         Res.success();
     }
@@ -195,8 +206,9 @@ public class AuthMasterAdmin extends AdminController {
     @Auth(alias = AuthConst.masterAuthGroup, level = Auth.query)
     public void getChooseAuthList () {
         Integer authType = postInt("authType");
-        if (CommonUtil.isEmpty(authType))
+        if (CommonUtil.isEmpty(authType)) {
             Res.fail(ErrorType.PARAM_ERR);
+        }
         Res.success(authService.getChooseAuthList(authType, getRules()));
     }
 }

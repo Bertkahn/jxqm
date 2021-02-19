@@ -1,4 +1,4 @@
-package com.cloud.log.config;
+package com.cloud.analyse.config;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
@@ -12,8 +12,9 @@ public class MybatisPlusConfig {
     private boolean product;
     @Bean
     public PerformanceInterceptor performanceInterceptor() {
-        if (product)
+        if (product) {
             return null;
+        }
         return new PerformanceInterceptor();
     }
     @Bean

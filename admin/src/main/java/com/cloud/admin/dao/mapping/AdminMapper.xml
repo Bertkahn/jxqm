@@ -24,14 +24,14 @@
         id, instId, userId, trueName, phone, password, workId, token, authType, resetPassword, groupId, createTime, deleteTime
     </sql>
     <delete id="delAdminByIdAndAuthType">
-        delete from admin where id = #{adminId} and authType = #{authType}
+        delete from ad_admin where id = #{adminId} and authType = #{authType}
     </delete>
     <select id="getAdminList" resultType="java.util.Map">
         select
           a.id, a.instId, b.name instName, a.trueName, a.phone, a.workId, a.groupId, a.status, c.name groupName, a.createTime
-        from admin a
-        left join inst b on a.instId = b.id
-        left join authGroup c on a.groupId = c.id
+        from ad_admin a
+        left join ad_inst b on a.instId = b.id
+        left join ad_authgroup c on a.groupId = c.id
         where a.deleteTime = 0 and a.authType = #{authType}
         <foreach collection="table.search" item="item" index="index" separator="and" open="and">
             ${'a.' + item.key} ${item.symbol} #{item.value}
@@ -41,15 +41,15 @@
         </if>
     </select>
     <select id="getAdminAndCompanyList" resultType="java.util.Map">
-        select a.id, a.trueName, a.phone, b.name instName from admin a
-        left join inst b on a.instId = b.id
+        select a.id, a.trueName, a.phone, b.name instName from ad_admin a
+        left join ad_inst b on a.instId = b.id
         where a.id in
         <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
             #{item}
         </foreach>
     </select>
     <select id="getAdminListByIdList" resultType="java.util.Map">
-        select id, trueName, phone from admin where id in
+        select id, trueName, phone from ad_admin where id in
         <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
             #{item}
         </foreach>

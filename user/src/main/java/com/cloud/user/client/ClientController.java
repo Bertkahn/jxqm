@@ -10,6 +10,7 @@ public class ClientController extends com.cloud.common.parent.ClientController {
     @Resource
     private UserService userService;
 
+    @Override
     @ModelAttribute
     protected void init(){
         super.init();

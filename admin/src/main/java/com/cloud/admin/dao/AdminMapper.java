@@ -20,23 +20,23 @@ import java.util.Map;
  */
 public interface AdminMapper extends BaseMapper<Admin> {
 
-    @Select("select * from admin where token = #{token} limit 1")
+    @Select("select * from ad_admin where token = #{token} limit 1")
     Admin getAdminByToken(String token);
 
-    @Select("select * from admin where phone = #{phone} limit 1")
+    @Select("select * from ad_admin where phone = #{phone} limit 1")
     Admin getAdminByPhone(String phone);
 
-    @Select("select * from admin where workId = #{workId} limit 1")
+    @Select("select * from ad_admin where workId = #{workId} limit 1")
     Admin getAdminByWorkId(Integer workId);
 
     List<Map> getAdminList(@Param("authType") Integer authType, @Param("table") TableDto tableDto, Page page);
 
     void delAdminByIdAndAuthType(@Param("adminId") Long adminId, @Param("authType") Integer authType);
 
-    @Select("select * from admin order by id desc limit 1")
+    @Select("select * from ad_admin order by id desc limit 1")
     Admin getLastAdmin();
 
-    @Select("select * from admin where groupId = #{groupId} limit 1")
+    @Select("select * from ad_admin where groupId = #{groupId} limit 1")
     Admin getAdminByGroupId(Long groupId);
 
     List<Map> getAdminAndCompanyList (@Param("idList") List<Long> adminIdList);

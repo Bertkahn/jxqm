@@ -18,7 +18,7 @@
         id, path, name, icon, pid, authType, remark
     </sql>
     <select id="getAuthMenuList" resultType="java.util.Map">
-        select * from authMenu
+        select * from ad_authmenu
         <where>
             <foreach collection="table.search" item="item" index="index" separator="and">
                 ${item.key} ${item.symbol} #{item.value}
@@ -26,7 +26,7 @@
         </where>
     </select>
     <select id="getSelectMenuListByAuth" resultType="java.util.Map">
-        select * from authMenu where
+        select * from ad_authmenu where
         authType = #{authType} and
         path
         <if test="isParent">=</if>
@@ -34,13 +34,13 @@
         ''
     </select>
     <select id="getMenuListByAliasList" resultType="java.util.Map">
-        select a.* from authMenu a inner join auth b on a.id = b.menuId where b.alias in
+        select a.* from ad_authmenu a inner join ad_auth b on a.id = b.menuId where b.alias in
         <foreach collection="aliasList" index="index" item="item" open="(" separator="," close=")">
             #{item}
         </foreach>
     </select>
     <select id="getMenuListByIdList" resultType="java.util.Map">
-        select * from authMenu where id in
+        select * from ad_authmenu where id in
         <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
             #{item}
         </foreach>

@@ -45,8 +45,9 @@ public class BaseController {
     }
     /*========================取参方法=========================*/
     protected final boolean isDebug () {
-        if (product)
+        if (product) {
             return false;
+        }
         return getInt(RequestKeyConst.test) != null;
     }
     /*=======================post 方法=========================*/
@@ -55,12 +56,14 @@ public class BaseController {
         return postObject(key, clazz, null);
     }
     protected <T> T postObject (String key, Class<T> clazz, T defaultVal) {
-        if (isDebug())
+        if (isDebug()) {
             return getObject(key, clazz, defaultVal);
+        }
         try {
             T result = postParams().getObject(key, clazz);
-            if (result == null)
+            if (result == null) {
                 return defaultVal;
+            }
             return result;
         }catch (Exception e) {
             return defaultVal;
@@ -80,15 +83,18 @@ public class BaseController {
     }
 
     protected <T> List<T> postList (String key, Class<T> clazz, List<T> defaultVal) {
-        if (isDebug())
+        if (isDebug()) {
             return getList(key, clazz, defaultVal);
+        }
         try {
             JSONArray jsonArray = postParams().getJSONArray(key);
-            if (jsonArray == null)
+            if (jsonArray == null) {
                 return defaultVal;
+            }
             List<T> result = jsonArray.toJavaList(clazz);
-            if (result == null)
+            if (result == null) {
                 return defaultVal;
+            }
             return result;
         }catch (Exception e) {
             return defaultVal;
@@ -100,12 +106,14 @@ public class BaseController {
         return postMap(key, null);
     }
     protected <K,V> Map<K,V> postMap (String key, Map<K,V> defaultVal) {
-        if (isDebug())
+        if (isDebug()) {
             return getMap(key, defaultVal);
+        }
         try {
             Map<K,V> result = postParams().getObject(key, new TypeReference<Map<K, V>>(){});
-            if (result == null)
+            if (result == null) {
                 return defaultVal;
+            }
             return result;
         }catch (Exception e) {
             return defaultVal;
@@ -117,12 +125,14 @@ public class BaseController {
         return postDecimal(key, null);
     }
     protected BigDecimal postDecimal (String key, BigDecimal defaultVal) {
-        if (isDebug())
+        if (isDebug()) {
             return getDecimal(key, defaultVal);
+        }
         try {
             BigDecimal result = postParams().getBigDecimal(key);
-            if (result == null)
+            if (result == null) {
                 return defaultVal;
+            }
             return result;
         }catch (Exception e) {
             return defaultVal;
@@ -134,12 +144,14 @@ public class BaseController {
         return postLong(key, null);
     }
     protected Long postLong (String key, Long defaultVal) {
-        if (isDebug())
+        if (isDebug()) {
             return getLong(key, defaultVal);
+        }
         try {
             Long result = postParams().getLong(key);
-            if (result == null)
+            if (result == null) {
                 return defaultVal;
+            }
             return result;
         }catch (Exception e) {
             return defaultVal;
@@ -151,12 +163,14 @@ public class BaseController {
         return postDouble(key, null);
     }
     protected Double postDouble (String key, Double defaultVal) {
-        if (isDebug())
+        if (isDebug()) {
             return getDouble(key, defaultVal);
+        }
         try {
             Double result = postParams().getDouble(key);
-            if (result == null)
+            if (result == null) {
                 return defaultVal;
+            }
             return result;
         }catch (Exception e) {
             return defaultVal;
@@ -167,12 +181,14 @@ public class BaseController {
         return postFloat(key, null);
     }
     protected Float postFloat (String key, Float defaultVal) {
-        if (isDebug())
+        if (isDebug()) {
             return getFloat(key, defaultVal);
+        }
         try {
             Float result = postParams().getFloat(key);
-            if (result == null)
+            if (result == null) {
                 return defaultVal;
+            }
             return result;
         }catch (Exception e) {
             return defaultVal;
@@ -183,12 +199,14 @@ public class BaseController {
         return postInt(key, null);
     }
     protected Integer postInt (String key, Integer defaultVal) {
-        if (isDebug())
+        if (isDebug()) {
             return getInt(key, defaultVal);
+        }
         try {
             Integer result = postParams().getInteger(key);
-            if (result == null)
+            if (result == null) {
                 return defaultVal;
+            }
             return result;
         }catch (Exception e) {
             return defaultVal;
@@ -200,12 +218,14 @@ public class BaseController {
         return postString(key, null);
     }
     protected String postString (String key, String defaultVal) {
-        if (isDebug())
+        if (isDebug()) {
             return getString(key, defaultVal);
+        }
         try {
             String result = postParams().getString(key);
-            if (result == null)
+            if (result == null) {
                 return defaultVal;
+            }
             return result;
         }catch (Exception e) {
             return defaultVal;
@@ -219,11 +239,13 @@ public class BaseController {
     protected <T> T getObject (String key, Class<T> clazz, T defaultVal) {
         try {
             String json = getParams().getString(key);
-            if (json == null)
+            if (json == null) {
                 return defaultVal;
+            }
             T result = JSON.parseObject(json, clazz);
-            if (result == null)
+            if (result == null) {
                 return defaultVal;
+            }
             return result;
         }catch (Exception e) {
             return defaultVal;
@@ -242,14 +264,17 @@ public class BaseController {
     protected <T> List<T> getList (String key, Class<T> clazz, List<T> defaultVal) {
         try {
             String json = getParams().getString(key);
-            if (json == null)
+            if (json == null) {
                 return defaultVal;
+            }
             JSONArray jsonArray = JSON.parseArray(json);
-            if (jsonArray == null)
+            if (jsonArray == null) {
                 return defaultVal;
+            }
             List<T> result = jsonArray.toJavaList(clazz);
-            if (result == null)
+            if (result == null) {
                 return defaultVal;
+            }
             return result;
         }catch (Exception e) {
             return defaultVal;
@@ -263,11 +288,13 @@ public class BaseController {
     protected <K,V> Map<K,V> getMap (String key, Map<K,V> defaultVal) {
         try {
             String json = getParams().getString(key);
-            if (json == null)
+            if (json == null) {
                 return defaultVal;
+            }
             Map<K, V> result = JSONObject.parseObject(json, new TypeReference<Map<K, V>>(){});
-            if (result == null)
+            if (result == null) {
                 return defaultVal;
+            }
             return result;
         }catch (Exception e) {
             return defaultVal;
@@ -281,8 +308,9 @@ public class BaseController {
     protected BigDecimal getDecimal (String key, BigDecimal defaultVal) {
         try {
             BigDecimal result = getParams().getBigDecimal(key);
-            if (result == null)
+            if (result == null) {
                 return defaultVal;
+            }
             return result;
         }catch (Exception e) {
             return defaultVal;
@@ -295,8 +323,9 @@ public class BaseController {
     protected Long getLong (String key, Long defaultVal) {
         try {
             Long result = getParams().getLong(key);
-            if (result == null)
+            if (result == null) {
                 return defaultVal;
+            }
             return result;
         }catch (Exception e) {
             return defaultVal;
@@ -309,8 +338,9 @@ public class BaseController {
     protected Double getDouble (String key, Double defaultVal) {
         try {
             Double result = getParams().getDouble(key);
-            if (result == null)
+            if (result == null) {
                 return defaultVal;
+            }
             return result;
         }catch (Exception e) {
             return defaultVal;
@@ -323,8 +353,9 @@ public class BaseController {
     protected Float getFloat (String key, Float defaultVal) {
         try {
             Float result = getParams().getFloat(key);
-            if (result == null)
+            if (result == null) {
                 return defaultVal;
+            }
             return result;
         }catch (Exception e) {
             return defaultVal;
@@ -338,8 +369,9 @@ public class BaseController {
     protected Integer getInt (String key, Integer defaultVal) {
         try {
             Integer result = getParams().getInteger(key);
-            if (result == null)
+            if (result == null) {
                 return defaultVal;
+            }
             return result;
         }catch (Exception e) {
             return defaultVal;
@@ -353,8 +385,9 @@ public class BaseController {
     protected String getString (String key, String defaultVal) {
         try {
             String result = getParams().getString(key);
-            if (result == null)
+            if (result == null) {
                 return defaultVal;
+            }
             return result;
         }catch (Exception e) {
             return defaultVal;
@@ -437,8 +470,9 @@ public class BaseController {
             }
         } else {
             logFeign.setSysLog(request, exception);
-            if (!product)
+            if (!product) {
                 exception.printStackTrace();
+            }
             return new ResModel(ErrorType.SERVER_ERR.getCode(), "", ErrorType.SERVER_ERR.getMsg());
         }
     }

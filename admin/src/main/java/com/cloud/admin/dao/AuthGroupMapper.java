@@ -19,10 +19,10 @@ import java.util.List;
  */
 public interface AuthGroupMapper extends BaseMapper<AuthGroup> {
 
-    @Select("select rules from authGroup where id = #{groupId}")
+    @Select("select rules from ad_authgroup where id = #{groupId}")
     String getRulesByGroupId(Long groupId);
 
-    @Select("select * from authGroup where authType = #{authType} and id > 1")
+    @Select("select * from ad_authgroup where authType = #{authType} and id > 1")
     List<AuthGroup> getAuthGroupList(Integer authType);
 
     List<AuthGroup> getAuthGroupPage(@Param("table") TableDto tableDto, Page page);

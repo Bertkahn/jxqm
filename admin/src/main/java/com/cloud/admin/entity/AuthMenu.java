@@ -2,6 +2,8 @@ package com.cloud.admin.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableField;
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -12,7 +14,8 @@ import java.io.Serializable;
  * @author sun
  * @since 2019-06-13
  */
-@TableName("authMenu")
+@Data
+@TableName("ad_authmenu")
 public class AuthMenu implements Serializable {
 
 private static final long serialVersionUID=1L;

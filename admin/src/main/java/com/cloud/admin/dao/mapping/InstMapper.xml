@@ -18,7 +18,7 @@
     </sql>
 
     <select id="getInstNameListByIdList" resultType="java.util.Map">
-        select * from inst where id in
+        select * from ad_inst where id in
         <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
             #{item}
         </foreach>

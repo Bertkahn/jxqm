@@ -18,7 +18,7 @@
     </sql>
     <select id="getAuthGroupPage"
             resultType="com.cloud.admin.entity.AuthGroup">
-        select * from authGroup
+        select * from ad_authgroup
         <where>
             <foreach collection="table.search" item="item" index="index" separator="and" open="and">
                 ${item.key} ${item.symbol} #{item.value}

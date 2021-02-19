@@ -7,6 +7,7 @@ public class ServerController extends BaseController {
     @Value("${server.product}")
     private boolean product;
 
+    @Override
     @ModelAttribute
     protected void init(){
         super.init();

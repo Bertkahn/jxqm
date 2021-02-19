@@ -20,10 +20,10 @@ import java.util.Map;
  */
 public interface AuthMapper extends BaseMapper<Auth> {
 
-    @Select("select * from auth where alias = #{alias} limit 1")
+    @Select("select * from ad_auth where alias = #{alias} limit 1")
     Auth getAuthByAlias(String alias);
 
-    @Select("select * from auth where authType = #{authType}")
+    @Select("select * from ad_auth where authType = #{authType}")
     List<Map<String, Object>> getAuthListByAuthType(Integer authType);
 
     List<Map> getAuthList(@Param("table") TableDto tableDto, Page page);

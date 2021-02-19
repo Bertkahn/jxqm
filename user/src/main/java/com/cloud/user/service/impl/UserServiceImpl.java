@@ -1,6 +1,8 @@
 package com.cloud.user.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cloud.common.constant.DeviceConst;
 import com.cloud.common.constant.RedisConst;
 import com.cloud.common.constant.TimeConst;
@@ -26,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     @Resource
     private Redis redis;
     @Resource
@@ -169,11 +171,12 @@ public class UserServiceImpl implements UserService {
         return parseReturnUser(user, userLogin);
     }
 
-    private Map parseReturnUser (User user) {
+    private Map parseReturnUser(User user) {
         UserLogin userLogin = userLoginMapper.selectById(user.getId());
-        return parseReturnUser (user, userLogin);
+        return parseReturnUser(user, userLogin);
     }
-    private Map parseReturnUser (User user, UserLogin userLogin) {
+
+    private Map parseReturnUser(User user, UserLogin userLogin) {
         // redis
         UserAuthDto userAuthDto = new UserAuthDto();
         userAuthDto.setUserId(user.getId());
@@ -227,9 +230,8 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
     // 创建userId
-    private Long createUserId () {
+    private Long createUserId() {
         Long lastUserId = redis.get(RedisConst.lastUserIdKey, Long.class);
         if (CommonUtil.isEmpty(lastUserId))
             lastUserId = userMapper.getLastUserId();
@@ -256,9 +258,48 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Page getMyCustomerPage(Long saleId, TableDto tableDto) {
-        Page<Map> page = new Page<>(tableDto.getCurrent(), tableDto.getSize());
+        Page<User> page = new Page<>(tableDto.getCurrent(), tableDto.getSize());
         page.setRecords(userMapper.getMyCustomerList(saleId, tableDto, page));
         return page;
+    }
+
+    @Override
+    public void addMyUser(Long saleId, String trueName, String phone, String nickName, Integer age, Integer sex) {
+        User u = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getPhone, phone));
+        if (u != null) {
+            Res.fail(ErrorType.PHONE_EXIST);
+        }
+        User user = new User();
+        user.setSaleId(saleId);
+        user.setTrueName(trueName);
+        user.setPhone(phone);
+        user.setNickName(nickName);
+        user.setAge(age);
+        user.setSex(sex);
+        int insert = userMapper.insert(user);
+        if (insert != 1) {
+            Res.fail(ErrorType.OTHER_ERR);
+        }
+    }
+
+    @Override
+    public void delMyUser(Long id) {
+        if (userMapper.deleteById(id) != 1) {
+            Res.fail("删除失败！");
+        }
+    }
+
+    @Override
+    public void updateMyUser(Long id, String trueName, String phone, String nickName, Integer age, Integer sex) {
+        User user = userMapper.selectById(id);
+        user.setTrueName(trueName);
+        user.setPhone(phone);
+        user.setNickName(nickName);
+        user.setAge(age);
+        user.setSex(sex);
+        if (userMapper.updateById(user) != 1) {
+            Res.fail("更新失败！");
+        }
     }
 
 // 注册

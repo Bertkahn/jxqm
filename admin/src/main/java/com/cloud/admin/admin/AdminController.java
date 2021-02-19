@@ -10,6 +10,7 @@ public class AdminController extends com.cloud.common.parent.AdminController {
     @Resource
     private AdminService adminService;
 
+    @Override
     @ModelAttribute
     protected void init(){
         super.init();

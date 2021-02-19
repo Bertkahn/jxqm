@@ -28,8 +28,9 @@ public class Activity1Client extends ClientController {
         Long activityId = postLong("activityId");
         String want = postString("want", "");
         String remark = postString("remark", "");
-        if (CommonUtil.isEmpty(activityId) || imgList == null || imgList.size() < 3 || imgList.size() > 9)
+        if (CommonUtil.isEmpty(activityId) || imgList == null || imgList.size() < 3 || imgList.size() > 9) {
             Res.fail(ErrorType.PARAM_ERR);
+        }
         activity1Service.joinActivity(getUserId(), activityId, imgList, want, remark);
         Res.success();
     }
@@ -38,8 +39,9 @@ public class Activity1Client extends ClientController {
     public void isSupport () {
         Long friendId = postLong("friendId");
         Long activityId = postLong("activityId");
-        if (CommonUtil.isEmpty(friendId) || CommonUtil.isEmpty(activityId))
+        if (CommonUtil.isEmpty(friendId) || CommonUtil.isEmpty(activityId)) {
             Res.fail(ErrorType.PARAM_ERR);
+        }
         Res.success(activity1Service.isSupport(getUserId(), friendId, activityId));
     }
 
@@ -47,8 +49,9 @@ public class Activity1Client extends ClientController {
     public void supportFriend () {
         Long friendId = postLong("friendId");
         Long activityId = postLong("activityId");
-        if (CommonUtil.isEmpty(friendId) || CommonUtil.isEmpty(activityId))
+        if (CommonUtil.isEmpty(friendId) || CommonUtil.isEmpty(activityId)) {
             Res.fail(ErrorType.PARAM_ERR);
+        }
         activity1Service.supportFriend(getUserId(), friendId, activityId);
         Res.success();
     }
@@ -58,8 +61,9 @@ public class Activity1Client extends ClientController {
     public void getSupportRankPage () {
         Integer current = postInt("current", 1);
         Long activityId = postLong("activityId");
-        if (CommonUtil.isEmpty(activityId))
+        if (CommonUtil.isEmpty(activityId)) {
             Res.fail(ErrorType.PARAM_ERR);
+        }
         Res.success(activity1Service.getSupportRankPage(activityId, current));
     }
 
@@ -68,8 +72,9 @@ public class Activity1Client extends ClientController {
     public void getUserSupportInfo () {
         Long userId = postLong("userId");
         Long activityId = postLong("activityId");
-        if (CommonUtil.isEmpty(userId) || CommonUtil.isEmpty(activityId))
+        if (CommonUtil.isEmpty(userId) || CommonUtil.isEmpty(activityId)) {
             Res.fail(ErrorType.PARAM_ERR);
+        }
         Res.success(activity1Service.getUserSupportInfo(userId, activityId));
     }
 }

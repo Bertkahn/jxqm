@@ -12,8 +12,9 @@ public class MybatisPlusConfig {
     private boolean product;
     @Bean
     public PerformanceInterceptor performanceInterceptor() {
-        if (product)
+        if (product) {
             return null;
+        }
         return new PerformanceInterceptor();
     }
     @Bean

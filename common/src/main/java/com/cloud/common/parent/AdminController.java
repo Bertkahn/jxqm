@@ -22,6 +22,7 @@ public class AdminController extends BaseController {
 
     protected List<String> noNeedLogin;
 
+    @Override
     @ModelAttribute
     protected void init(){
         super.init();
@@ -36,13 +37,16 @@ public class AdminController extends BaseController {
 
     protected TableDto getTable (List<String> paramList) {
         TableDto tableDto = postObject(RequestKeyConst.tableForm, TableDto.class);
-        if (tableDto == null)
+        if (tableDto == null) {
             return new TableDto();
+        }
         if (CommonUtil.isNotEmpty(tableDto.getSort())) {
-            if (!paramList.contains(tableDto.getSort()))
+            if (!paramList.contains(tableDto.getSort())) {
                 tableDto.setSort(null);
-            if (!(tableDto.getSortType().equals("asc") || tableDto.getSortType().equals("desc")))
+            }
+            if (!(tableDto.getSortType().equals("asc") || tableDto.getSortType().equals("desc"))) {
                 tableDto.setSort(null);
+            }
         } else {
             tableDto.setSort(null);
         }
@@ -55,28 +59,36 @@ public class AdminController extends BaseController {
     protected final Long getAdminId () {
         HttpServletRequest request = CommonUtil.getServletRequest();
         Long adminId = (Long) request.getAttribute(RequestKeyConst.adminId);
-        if (adminId == null) adminId = 0L;
+        if (adminId == null) {
+            adminId = 0L;
+        }
         return adminId;
     }
 
     protected final Long getInstId () {
         HttpServletRequest request = CommonUtil.getServletRequest();
         Long instId = (Long) request.getAttribute(RequestKeyConst.instId);
-        if (instId == null) instId = 0L;
+        if (instId == null) {
+            instId = 0L;
+        }
         return instId;
     }
 
     protected final Integer getAuthType () {
         HttpServletRequest request = CommonUtil.getServletRequest();
         Integer authType = (Integer) request.getAttribute(RequestKeyConst.authType);
-        if (authType == null) authType = 0;
+        if (authType == null) {
+            authType = 0;
+        }
         return authType;
     }
 
     protected final String getRules () {
         HttpServletRequest request = CommonUtil.getServletRequest();
         String rules = (String) request.getAttribute(RequestKeyConst.authRule);
-        if (rules == null) rules = "";
+        if (rules == null) {
+            rules = "";
+        }
         return rules;
     }
 
@@ -123,8 +135,9 @@ public class AdminController extends BaseController {
             String token = request.getHeader(RequestKeyConst.token);
             device = postInt(RequestKeyConst.device);
             Integer time = postInt("time");
-            if (CommonUtil.isEmpty(device) || CommonUtil.isEmpty(time))
+            if (CommonUtil.isEmpty(device) || CommonUtil.isEmpty(time)) {
                 Res.fail(ErrorType.UNSAFE_EMPTY);
+            }
             if (Math.abs(time - TimeUtil.getTimeStamp()) > TimeConst.minute) {
                 Res.fail(ErrorType.UNSAFE_TIME);
             }

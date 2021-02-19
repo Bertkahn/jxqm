@@ -11,14 +11,14 @@ public class CodeGenerator {
 
 
 
-    private static final String name = "tool";// 服务名
-    private static final String dbName = "sm_" +  name;// 数据库
-    private static final String tableName = "encode_param";// 表名
+    private static final String name = "activity";// 服务名
+    private static final String dbName = "wanshua";// 数据库
+    private static final String tableName = "activity_files";// 表名
 
 
 
-    private static final String username = "sm_child";
-    private static final String password = "dwfer$wew@Wd223";
+    private static final String username = "root";
+    private static final String password = "root";
 
 
     // 配置
@@ -28,7 +28,8 @@ public class CodeGenerator {
 
     private static final String author = "sun";
 //    private static final String url = "jdbc:mysql://rm-bp18ka3x8xzx9uvs3.mysql.rds.aliyuncs.com:3306/" + dbName + "?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false";
-    private static final String url = "jdbc:mysql://rm-bp10d27rlb58bmnupio.mysql.rds.aliyuncs.com:3306/" + dbName + "?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false";
+//    private static final String url = "jdbc:mysql://rm-bp10d27rlb58bmnupio.mysql.rds.aliyuncs.com:3306/" + dbName + "?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false";
+    private static final String url = "127.0.0.1:3306/" + dbName + "?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false";
 
 
 

@@ -15,5 +15,11 @@ public interface ActivityFilesService  {
     //获取活动文件
     List<Map<String,Object>> getActivityFiles(TableDto tableDto, Long activityId);
 
-    void editActivityFiles(Long id, String url, Long activityId, String name);
+    //jiang
+    //修改活动文件
+    void editActivityFiles(Long id, String url, String name);
+
+    //jiang
+    //上传活动文件
+    void insertActivityFiles(Long activityId, String name, Integer type, String url);
 }

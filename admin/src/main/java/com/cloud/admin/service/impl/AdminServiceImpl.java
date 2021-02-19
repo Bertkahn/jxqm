@@ -1,6 +1,7 @@
 package com.cloud.admin.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cloud.admin.dao.AuthGroupMapper;
 import com.cloud.common.constant.RedisConst;
 import com.cloud.common.constant.TimeConst;
@@ -24,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class AdminServiceImpl implements AdminService {
+public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements AdminService {
     private final String pwdPre = "da%1!@daq";
     private final String pwdAfter = "12!2e3#";
     private final Integer expire = TimeConst.hour * 4;
@@ -42,8 +43,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void delAdmin(Long adminId, Integer authType) {
-        if (adminId == 1)
+        if (adminId == 1) {
             Res.fail(ErrorType.SUCCESS);
+        }
         adminMapper.delAdminByIdAndAuthType(adminId, authType);
     }
 
@@ -56,19 +58,22 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void editAdmin(Long tradeAdminId, Long adminId, Long instId, String trueName, String phone, String password, Integer authType, Long groupId, Integer status) {
-        if (adminId == 1 || groupId == 1)
+        if (adminId == 1 || groupId == 1) {
             Res.fail(ErrorType.SUCCESS);
+        }
         Admin admin = adminMapper.selectById(adminId);
-        if (admin == null)
+        if (admin == null) {
             Res.fail(ErrorType.NOT_EXIST);
+        }
         // 清除redis
         redis.delete(RedisConst.adminToken + admin.getToken());
         admin.setInstId(instId);
         admin.setTrueName(trueName);
         admin.setPhone(phone);
         admin.setAuthType(authType);
-        if (!tradeAdminId.equals(adminId))
+        if (!tradeAdminId.equals(adminId)) {
             admin.setGroupId(groupId);
+        }
         admin.setStatus(status);
         if (CommonUtil.isNotEmpty(password)) {
             admin.setPassword(CommonUtil.encryptPassword(password, pwdPre, pwdAfter));
@@ -79,11 +84,13 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void addAdmin(Long instId, String trueName, String phone, String password, Integer authType, Long groupId) {
-        if (groupId == 1)
+        if (groupId == 1) {
             Res.fail(ErrorType.SUCCESS);
+        }
         Admin admin = adminMapper.getAdminByPhone(phone);
-        if (admin != null)
+        if (admin != null) {
             Res.fail(ErrorType.PHONE_EXIST);
+        }
         admin = new Admin();
         admin.setInstId(instId);
         admin.setTrueName(trueName);
@@ -94,12 +101,19 @@ public class AdminServiceImpl implements AdminService {
         String workId;
         Integer num;
         num = redis.get(redisKey, Integer.class);
-        if (CommonUtil.isEmpty(num)) num = Integer.parseInt(adminMapper.getLastAdmin().getWorkId()) % 1000;
+        if (CommonUtil.isEmpty(num)) {
+            num = Integer.parseInt(adminMapper.getLastAdmin().getWorkId()) % 1000;
+        }
         num++;
-        if (num < 10) workId = "00" + num;
-        else if (num < 100) workId = "0" + num;
-        else if (num < 1000) workId = num.toString();
-        else workId = "001";
+        if (num < 10) {
+            workId = "00" + num;
+        } else if (num < 100) {
+            workId = "0" + num;
+        } else if (num < 1000) {
+            workId = num.toString();
+        } else {
+            workId = "001";
+        }
         workId = (new java.text.SimpleDateFormat("yyMMdd")).format(new Date()) + workId;
         // end
         admin.setWorkId(workId);
@@ -122,11 +136,13 @@ public class AdminServiceImpl implements AdminService {
         } else {
             admin = adminMapper.getAdminByWorkId(Integer.parseInt(account));
         }
-        if (admin == null || !admin.getPassword().equals(CommonUtil.encryptPassword(password, pwdPre, pwdAfter)))
+        if (admin == null || !admin.getPassword().equals(CommonUtil.encryptPassword(password, pwdPre, pwdAfter))) {
             Res.fail(ErrorType.LOGIN_FAIL);
+        }
         // 判断状态
-        if (admin.getStatus() != 1)
+        if (admin.getStatus() != 1) {
             Res.fail(ErrorType.ACCOUNT_CLOSE);
+        }
         // 清除redis
         redis.delete(RedisConst.adminToken + admin.getToken());
         // 更新token
@@ -155,8 +171,9 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Map changePassword(Long adminId, String password, String newPassword) {
         Admin admin = adminMapper.selectById(adminId);
-        if (!admin.getPassword().equals(CommonUtil.encryptPassword(password, pwdPre, pwdAfter)))
+        if (!admin.getPassword().equals(CommonUtil.encryptPassword(password, pwdPre, pwdAfter))) {
             Res.fail(ErrorType.PASSWORD_ERR);
+        }
         admin.setPassword(CommonUtil.encryptPassword(newPassword, pwdPre, pwdAfter));
         admin.setResetPassword(0);
         // 清除redis
@@ -189,8 +206,9 @@ public class AdminServiceImpl implements AdminService {
         AdminAuthDto adminAuthDto;
         String key = RedisConst.adminToken + token;
         adminAuthDto = redis.get(key, AdminAuthDto.class);
-        if (adminAuthDto == null)
+        if (adminAuthDto == null) {
             Res.fail(ErrorType.LOGIN_EXPIRE);
+        }
         redis.setExpire(key, expire);
         return adminAuthDto;
     }
