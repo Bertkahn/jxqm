@@ -18,5 +18,5 @@ import java.util.Map;
  * @since 2019-07-01
  */
 public interface SaleUserMapper extends BaseMapper<SaleUser> {
-    List<Map<String, Object>> getSaleUserPageByAdminId (@Param("adminId") Long adminId, @Param("table")TableDto tableDto, Page page);
+    List<Map<String, Object>> getSaleUserPageByAdminId (@Param("adminId") Long adminId, @Param("table")TableDto tableDto, Page<Map<String, Object>> page);
 }

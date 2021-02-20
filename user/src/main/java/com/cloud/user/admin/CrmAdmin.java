@@ -17,7 +17,7 @@ public class CrmAdmin extends AdminController {
     private CrmService crmService;
 
     @RequestMapping("/getSaleUserPageByAdminId")
-    public void getSaleUserPageByAdminId () {
+    public void getSaleUserPageByAdminId() {
         List<String> paramList = Arrays.asList("nickName", "trueName", "phone", "sex", "nextVisitTime");
         Res.success(crmService.getSaleUserPageByAdminId(getAdminId(), getTable(paramList)));
     }

@@ -20,7 +20,7 @@ public class CrmServiceImpl implements CrmService {
     private UserAdviceMapper userAdviceMapper;
 
     @Override
-    public Page getSaleUserPageByAdminId(Long adminId, TableDto tableDto) {
+    public Page<Map<String, Object>> getSaleUserPageByAdminId(Long adminId, TableDto tableDto) {
         Page<Map<String, Object>> page = new Page<>(tableDto.getCurrent(), tableDto.getSize());
         page.setRecords(saleUserMapper.getSaleUserPageByAdminId(adminId, tableDto, page));
         for (Map<String, Object> user : page.getRecords()) {
