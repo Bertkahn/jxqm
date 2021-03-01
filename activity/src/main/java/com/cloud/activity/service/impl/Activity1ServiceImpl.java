@@ -21,6 +21,7 @@ import com.cloud.common.util.AliUtil;
 import com.cloud.common.util.CommonUtil;
 import com.cloud.common.util.IdUtil;
 import com.cloud.common.util.TimeUtil;
+import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,8 +50,9 @@ public class Activity1ServiceImpl implements Activity1Service {
     @Transactional
     public void joinActivity(Long userId, Long activityId, List<String> imgList, String want, String remark) {
         UserJoin userJoin = userJoinMapper.getUserJoinByUserAndActivity(userId, activityId);
-        if (userJoin != null)
+        if (userJoin != null) {
             Res.fail(ErrorType.ACTIVITY_HAS_JOIN);
+        }
         //
         Activity1User activity1User = new Activity1User();
         activity1User.setRemark(remark);
@@ -65,8 +67,8 @@ public class Activity1ServiceImpl implements Activity1Service {
         userJoin.setActivityId(activityId);
         userJoinMapper.insert(userJoin);
         // img
-        List<Map<String, String>> imgMoveList = new ArrayList<>();
-        List<Activity1UserImg> list = new ArrayList<>();
+        List<Map<String, String>> imgMoveList = Lists.newArrayList();
+        List<Activity1UserImg> list = Lists.newArrayList();
         for (String img : imgList) {
             Activity1UserImg activity1UserImg = new Activity1UserImg();
             activity1UserImg.setId(IdUtil.getId());
@@ -88,11 +90,13 @@ public class Activity1ServiceImpl implements Activity1Service {
     @Override
     @Transactional
     public void supportFriend(Long userId, Long friendId, Long activityId) {
-        if (userId.equals(friendId))
+        if (userId.equals(friendId)) {
             Res.fail(ErrorType.SUPPORT_SELF);
+        }
         // 注意这里的逻辑,非常重要，并没有写错
-        if (isSupport(userId, friendId, activityId) == 1)
+        if (isSupport(userId, friendId, activityId) == 1) {
             Res.fail(ErrorType.HAS_SUPPORT);
+        }
         Activity1Support activity1Support = new Activity1Support();
         activity1Support.setUserId(friendId);
         activity1Support.setFriendId(userId);
@@ -117,11 +121,13 @@ public class Activity1ServiceImpl implements Activity1Service {
     public Page getSupportRankPage(Long activityId, Integer current) {
         String redisKey = RedisConst.activityKey + activityId + current;
         Page<Map<String, Object>> page = redis.get(redisKey, Page.class);
-        if (page != null)
+        if (page != null) {
             return page;
+        }
         page = new Page<>(current, 10);
-        if (current > 10)
+        if (current > 10) {
             return page;
+        }
         page.setRecords(activity1UserMapper.getSupportRankList(activityId, page));
         List<Long> userIdList = new ArrayList<>();
         for (Map<String, Object> item : page.getRecords()) {

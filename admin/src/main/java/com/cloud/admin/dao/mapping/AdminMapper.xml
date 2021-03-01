@@ -5,7 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cloud.admin.entity.Admin">
         <id column="id" property="id" />
-        <result column="userId" property="userId" />
+        <result column="instId" property="instId" />
         <result column="trueName" property="trueName" />
         <result column="phone" property="phone" />
         <result column="password" property="password" />
@@ -21,7 +21,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, instId, userId, trueName, phone, password, workId, token, authType, resetPassword, groupId, createTime, deleteTime
+        id, instId, trueName, phone, password, workId, token, authType, resetPassword, groupId, createTime, deleteTime
     </sql>
     <delete id="delAdminByIdAndAuthType">
         delete from ad_admin where id = #{adminId} and authType = #{authType}
