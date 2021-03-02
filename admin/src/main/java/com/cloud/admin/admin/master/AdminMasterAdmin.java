@@ -66,7 +66,7 @@ public class AdminMasterAdmin extends AdminController {
 
     // 添加管理员
     @RequestMapping("/addAdmin")
-//    @Auth(alias = AuthConst.masterMasterAdmin, level = Auth.add)
+    @Auth(alias = AuthConst.masterMasterAdmin, level = Auth.add)
     public void addAdmin () {
         String trueName = postString("trueName");
         String phone = postString("phone");

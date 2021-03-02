@@ -1,8 +1,10 @@
 package com.cloud.activity.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cloud.activity.dao.ActivityMapper;
 import com.cloud.activity.dao.UserJoinMapper;
+import com.cloud.activity.entity.Activity;
 import com.cloud.activity.entity.UserJoin;
 import com.cloud.activity.service.ActivityService;
 import com.cloud.common.dto.TableDto;
@@ -15,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class ActivityServiceImpl implements ActivityService {
+public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> implements ActivityService {
     @Resource
     private UserJoinMapper userJoinMapper;
     @Resource
@@ -41,18 +43,18 @@ public class ActivityServiceImpl implements ActivityService {
         Page<Map<String, Object>> page = new Page<>(tableDto.getCurrent(), tableDto.getSize());
         page.setRecords(activityMapper.getActivityList(tableDto, page));
         List<Long> instIdList = new ArrayList<>();
-        for (Map<String, Object> item : page.getRecords()) {
+        page.getRecords().forEach(item->{
             instIdList.add(Long.parseLong(item.get("instId").toString()));
-        }
+        });
         List<Map<String, Object>> instList = adminFeign.getInstNameListByIdList(instIdList);
-        for (Map<String, Object> item : page.getRecords()) {
+        page.getRecords().forEach(item->{
             for (Map<String, Object> inst : instList) {
                 if (item.get("instId").toString().equals(inst.get("id").toString())) {
                     item.put("instName", inst.get("name"));
                     break;
                 }
             }
-        }
+        });
         return page;
     }
 }

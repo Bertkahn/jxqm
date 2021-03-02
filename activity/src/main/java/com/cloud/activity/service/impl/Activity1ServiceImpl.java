@@ -22,6 +22,7 @@ import com.cloud.common.util.CommonUtil;
 import com.cloud.common.util.IdUtil;
 import com.cloud.common.util.TimeUtil;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

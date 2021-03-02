@@ -1,6 +1,7 @@
 package com.cloud.activity.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cloud.activity.dao.ActivityFilesMapper;
 import com.cloud.activity.dao.ActivityMapper;
 import com.cloud.activity.entity.ActivityFiles;
@@ -24,7 +25,7 @@ import java.util.Map;
  * @date 2019/7/24 15:42
  */
 @Service
-public class ActivityFilesServiceImpl implements ActivityFilesService {
+public class ActivityFilesServiceImpl extends ServiceImpl<ActivityFilesMapper, ActivityFiles> implements ActivityFilesService {
 
     @Resource
     private ActivityFilesMapper activityFilesMapper;
@@ -38,8 +39,9 @@ public class ActivityFilesServiceImpl implements ActivityFilesService {
     @Transactional
     public void editActivityFiles(Long id, String url, String name) {
         ActivityFiles activityFiles = activityFilesMapper.selectById(id);
-        if(activityFiles==null)
+        if(activityFiles==null) {
             Res.fail(ErrorType.NOT_EXIST);
+        }
         activityFiles.setUrl(url);
         activityFiles.setName(name);
         activityFilesMapper.updateById(activityFiles);
